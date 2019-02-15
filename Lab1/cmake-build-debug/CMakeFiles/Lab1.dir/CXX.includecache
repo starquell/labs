@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+.././texttable/TextTable.h
+iostream
+-
+map
+-
+iomanip
+-
+vector
+-
+string
+-
+
+/home/starquell/CLionProjects/2semestr/Lab1/main.cpp
+monster.h
+/home/starquell/CLionProjects/2semestr/Lab1/monster.h
+chrono
+-
+vector
+-
+thread
+-
+fstream
+-
+
+/home/starquell/CLionProjects/2semestr/Lab1/monster.h
+iostream
+-
+string
+-
+cstdlib
+-
+array
+-
+TextTable.h
+/home/starquell/CLionProjects/2semestr/Lab1/TextTable.h
+

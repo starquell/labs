@@ -1,0 +1,8 @@
+    1. Add new monster
+    2. Save monsters to text file
+    3. Modify monster with name ...
+    4. Delete monster with name ...
+    5. Find monsters using end of name
+    6. Find monsters using type of special attack
+    7. Find monsters using chance of special attack higher than set
+
