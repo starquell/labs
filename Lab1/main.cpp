@@ -1,23 +1,12 @@
 #include "monster.h"
-#include <chrono>
-#include <vector>
-#include <thread>
-#include <fstream>
+#include "databaseFunctions.h"
+#include "benchmarkFunctions.h"
 
-using namespace std::chrono_literals;
-using std::this_thread::sleep_for;
+using namespace std::chrono;
 
-
-void presentation();
-//void benchmark();
-void defaultCase();
-
-void addMonster(std::vector <Monster> &monsters),
-     modifyMonster(std::vector <Monster> &monsters, std::string name),
-     deleteMonster(std::vector <Monster> &monsters, std::string name),
-     findMonster(std::vector <Monster> &monsters, std::string name),
-     findByAttack(std::vector <Monster> &monsters, std::string specialAttack),
-     findByAttack(std::vector <Monster> &monsters, double attackChance);
+void presentation(),
+     benchmark(),
+     interactive();
 
 void Selector(std::vector <Monster> &monsters);
 
@@ -27,26 +16,78 @@ int main(int argc, char** argv) {
     if (argc > 1) {
         std::string parameter(argv[1]);
 
-      //  if (parameter == "--benchmark")
-      //      benchmark();
+        if (parameter == "--benchmark")
+            benchmark();
         if (parameter == "--presentation")
             presentation();
     }
 
-    defaultCase();
+    interactive();
 
     return 0;
 }
 
-void defaultCase(){
+void interactive(){
 
     std::vector <Monster> monsters;
-    TextTable t( '-', '|', '+' );
 
-  //  addMonster(monsters);
-   // monsters[0].addTableInfo(t);
+   while (true) {
+       Selector(monsters);
+       sleep_for(1s);
+   }
+}
 
-    Selector(monsters);
+void benchmark(){
+
+    srand(time(nullptr));
+
+    size_t elements;
+
+    TextTable vectorresults( '-', '|', '+', 'b');
+
+    cout << "\nBenchmarking via vector...  \n";
+
+    for (elements = 2; ; elements *= 5)
+        if (vectorTest(vectorresults, elements) >= 1000)
+            break;
+
+
+    for (; ; elements *= 2)
+        if (vectorTest(vectorresults, elements) >= 10000)
+            break;
+
+    cout << vectorresults
+
+         << "\n\nBenchmarking via text file...  \n";
+
+    TextTable textresults( '-', '|', '+', 'b');
+
+    for (elements = 2; ; elements *= 5)
+        if (TextTest(textresults, elements) >= 1000)
+            break;
+
+
+    for (; ; elements *= 2)
+        if (TextTest(textresults, elements) >= 10000)
+            break;
+
+    cout << textresults
+
+         << "\n\nBenchmarking via binary file...  \n";
+
+    TextTable binaryresults( '-', '|', '+', 'b');
+
+    for (elements = 2; ; elements *= 5)
+        if (BinaryTest(binaryresults, elements) >= 1000)
+            break;
+
+
+    for (; ; elements *= 2)
+        if (BinaryTest(binaryresults, elements) >= 10000)
+            break;
+
+    cout << binaryresults;
+    exit(0);
 }
 
 void presentation(){
@@ -55,86 +96,170 @@ void presentation(){
 
     cout << "Creating random monsters...\n";
     sleep_for(1s);
-    cout << "Creating table...\n";
-    sleep_for(1s);
 
-    std::vector<Monster> monsters{5};
-    TextTable t( '-', '|', '+' );
+    std::vector<Monster> monsters{10};
 
     cout << "Adding monsters to table...\n\n";
     sleep_for(1s);
 
-    for (auto& i : monsters)
-        i.addTableInfo(t);
+    monstersOut(monsters);
 
-        cout << t;
+    std::remove("database.txt");
+    cout << "Saving monsters to file...\n";
+    sleep_for(1s);
+    saveToFile(monsters);
+    cout << "Monsters saved to database.txt!\n";
+
+    cout << "Deleting monster with name " << monsters[2].name << "...\n\n\n";
+    sleep_for(1s);
+    deleteMonster(monsters, monsters[2].name);
+
+    monstersOut(monsters);
+
+    std::string n = monsters.back().name;
+    n.erase(0, 3);
+
+    cout << "Let's find monster with last letters of name: " << n << " ...\n\n\n";
+    sleep_for(1s);
+    cout << findMonster(monsters, n);
+    sleep_for(0.5s);
+
+    cout << "Finding monster with special attack :" << Monster::attackTypes[1] << "...\n\n\n";
+    sleep_for(0.5s);
+    cout << findByAttack(monsters, 1);
+    sleep_for(0.75s);
+
+    cout << "Removing all monsters from memory...\n\n";
+    sleep_for(1s);
+
+    monsters.clear();
+    monstersOut(monsters);
+
+    cout << "Restoring data from file...\n\n";
+    sleep_for(1s);
+    readFromFile(monsters);
+    sleep_for(1s);
+    monstersOut(monsters);
+
+    cout << "nice job dude\n";
 
         exit(0);
 }
 
 void Selector (std::vector <Monster> &monsters) {
 
-    std::string s, name, specialAttack;
-    int choice;
+    struct tm lhs, rhs;
+    std::string name;
+    int choice, specialAttack;
     double attackChance;
 
-    std::ifstream selector;
-    selector.open("selector.txt");
-
-    if (selector.is_open())
-      while (!selector.eof()){
-
-        getline (selector, s);
-        cout << s << '\n';
-      }
+    menuOut("bof", "    14. Show database");
 
     cout << '\n';
     cin >> choice;
 
     switch (choice){
 
-        case 1: addMonster(monsters);
-                break;
-       // case 2:
-        case 3: {
-            cout << "Enter name of monster to modify   ";
-            cin >> name;
+        case 1: {
+            addMonster(monsters);
+            cout << "\nDone!\n" << "__________________________________________________\n";
+            break;
+        }
 
-         //   modifyMonster(monsters, name);
+        case 2: {
+            saveToFile(monsters);
+            cout << "\nDone!\n" << "__________________________________________________\n";
+            break;
+        }
+
+        case 3:  {
+            std::remove("database.txt");
+            cout << "\nDone!\n______________________________________\n";
             break;
         }
 
         case 4: {
-            cout << "Enter name of monster to delete   ";
-            cin >> name;
-
-         //   deleteMonster(monsters, name);
+            readFromFile(monsters);
+            cout << "\nDone!\n" << "__________________________________________________\n";
             break;
         }
 
-        case 5: {
-            cout << "Enter end of monster's name to find   ";
-            cin >> name;
-
-          //  findMonster(monsters, name);
+        case 5:  {
+            saveToBinary(monsters);
+            cout << "\nDone!\n" << "__________________________________________________\n";
+            break;
         }
 
         case 6: {
-            cout << "Enter monster's special attack to find   ";
-            cin >> specialAttack;
-
-          //  findByAttack(monsters, specialAttack);
+            readFromBinary(monsters);
+            cout << "\nDone!\n" << "__________________________________________________\n";
+            break;
         }
 
-        case 7: {
+        case 7:  {
+            std::remove("binarystorage.txt");
+            cout << "\nDone!\n______________________________________\n";
+            break;
+        }
+
+        case 8: {
+            cout << "Enter name of monster to modify   ";
+            cin >> name;
+
+               modifyMonster(monsters, name);
+            break;
+        }
+
+        case 9: {
+            cout << "Enter name of monster to delete   ";
+            cin >> name;
+
+              deleteMonster(monsters, name);
+            break;
+        }
+
+        case 10: {
+            cout << "Enter end of monster's name to find   ";
+            cin >> name;
+
+            cout << findMonster(monsters, name);
+            break;
+        }
+
+        case 11: {
+
+            menuOut("- special attack selection", "eof");
+
+            cin >> specialAttack;
+
+            cout << findByAttackType(monsters, specialAttack);
+            break;
+        }
+
+        case 12: {
             cout << "Enter chance of special attack to find monsters with higher chance   ";
             cin >> attackChance;
 
-          //  findByAttack(monsters, attackChance);
-
-            default:
-                Selector(monsters);
+            cout << findByAttack(monsters, attackChance);
+            break;
         }
-    }
 
+        case 13: {
+            cout << "Enter time in this style :  hours minutes seconds day month year\n"
+                 << "                 Example : 17 43 32  04 08 2001\n\n"
+                 << "      From ";
+            cin >> lhs.tm_hour >> lhs.tm_min >> lhs.tm_sec >> lhs.tm_mday >> lhs.tm_mon >> lhs.tm_year;
+            cout << " to ";
+            cin >> rhs.tm_hour >> rhs.tm_min >> rhs.tm_sec >> rhs.tm_mday >> rhs.tm_mon >> rhs.tm_year;
+
+            cout << findByTime(monsters, lhs, rhs);
+            break;
+        }
+
+        case 14:    monstersOut(monsters);
+                    break;
+
+          default:
+              return;
+        }
 }

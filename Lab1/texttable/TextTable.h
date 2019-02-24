@@ -9,20 +9,30 @@ class TextTable {
     public:
     enum class Alignment { LEFT, RIGHT }; 
     typedef std::vector< std::string > Row;
-    TextTable( char horizontal = '-', char vertical = '|', char corner = '+') :
+    TextTable( char horizontal = '-', char vertical = '|', char corner = '+', const char &s = 't') :
         _horizontal( horizontal ),
         _vertical( vertical ),
-        _corner( corner )
+        _corner( corner ) {
 
+        if (s == 'b') {
 
-    {
-        add( " " );
-        add(" Heath points ");
-        add(" Attack points ");
-        add(" Superattack chance ");
-        add(" Attack type ");
-        endOfRow();
+            add(" ");
+            add(" Write and Read ");
+            add(" Find by attack type ");
+            add(" Deleting half of data ");
+            endOfRow();
+        }
+        else {
+            add(" ");
+            add(" Health ");
+            add(" Attack ");
+            add(" Superattack chance ");
+            add(" Attack type ");
+            add(" Creating date and time ");
+            endOfRow();
+        }
     }
+
 
 
     void setAlignment( unsigned i, Alignment alignment )

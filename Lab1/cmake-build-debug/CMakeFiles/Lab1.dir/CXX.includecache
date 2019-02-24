@@ -18,17 +18,27 @@ vector
 string
 -
 
-/home/starquell/CLionProjects/2semestr/Lab1/main.cpp
-monster.h
-/home/starquell/CLionProjects/2semestr/Lab1/monster.h
-chrono
+/home/starquell/CLionProjects/2semestr/Lab1/benchmarkFunctions.h
+experimental/filesystem
+-
+
+/home/starquell/CLionProjects/2semestr/Lab1/databaseFunctions.h
+thread
 -
 vector
 -
-thread
+cassert
 -
-fstream
+functional
 -
+
+/home/starquell/CLionProjects/2semestr/Lab1/main.cpp
+monster.h
+/home/starquell/CLionProjects/2semestr/Lab1/monster.h
+databaseFunctions.h
+/home/starquell/CLionProjects/2semestr/Lab1/databaseFunctions.h
+benchmarkFunctions.h
+/home/starquell/CLionProjects/2semestr/Lab1/benchmarkFunctions.h
 
 /home/starquell/CLionProjects/2semestr/Lab1/monster.h
 iostream
@@ -41,4 +51,14 @@ array
 -
 TextTable.h
 /home/starquell/CLionProjects/2semestr/Lab1/TextTable.h
+map
+-
+chrono
+-
+ctime
+-
+fstream
+-
+cstring
+-
 

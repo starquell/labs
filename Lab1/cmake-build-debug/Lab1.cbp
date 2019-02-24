@@ -86,6 +86,12 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/home/starquell/CLionProjects/2semestr/Lab1/benchmarkFunctions.h">
+			<Option target="Lab1"/>
+		</Unit>
+		<Unit filename="/home/starquell/CLionProjects/2semestr/Lab1/databaseFunctions.h">
+			<Option target="Lab1"/>
+		</Unit>
 		<Unit filename="/home/starquell/CLionProjects/2semestr/Lab1/main.cpp">
 			<Option target="Lab1"/>
 		</Unit>
