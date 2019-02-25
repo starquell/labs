@@ -6,7 +6,7 @@
 using namespace std::chrono_literals;
 using std::this_thread::sleep_for;
 
-void menuOut (const std::string& begin, const std::string& end){
+void menuOut (const std::string& begin, const std::string& end){        // reading and cout menu from "selector.txt"
 
     std::ifstream selector("selector.txt");
     std::string s;
@@ -24,7 +24,7 @@ void menuOut (const std::string& begin, const std::string& end){
         getline(selector, s);
 
         if (ourtext)
-            cout << s << '\n';
+            cout << s << '\n';      // start reading from defined position
 
         if (s == begin)
             ourtext = true;
@@ -42,7 +42,7 @@ void monstersOut(std::vector <Monster> &monsters){
     sleep_for(1.25s);
 }
 
-void saveToFile (std::vector <Monster> &monsters,  std::string path = "database.txt"){
+void saveToFile (std::vector <Monster> &monsters,  const std::string &path = "database.txt"){
 
     std::ofstream file(path, std::ofstream::app);
 
@@ -81,10 +81,10 @@ void readFromFile (std::vector <Monster> &monsters, const std::string &path = "d
 
         monsters.emplace_back(name, hp, ap, attackChance, attackType, timeInSec, ID);
     }
-    monsters.pop_back();
+    monsters.pop_back();  // deleting trash
 }
 
-Monster findInFile (int key, const std::string &path = "benchmark.txt"){
+Monster findInFile (int key, const std::string &path = "benchmark.txt"){        //benchmark function
 
     std::ifstream file(path);
 
@@ -136,7 +136,7 @@ void readFromBinary(std::vector <Monster> &monsters, const std::string &path = "
 
     binary.seekg(0, binary.end);
     long int length = binary.tellg();
-    binary.seekg(0, binary.beg);
+    binary.seekg(0, binary.beg);       //detecting file size
 
 
     while (binary.tellg() < length) {
@@ -153,7 +153,7 @@ void readFromBinary(std::vector <Monster> &monsters, const std::string &path = "
     }
 }
 
-Monster findInBinary(int key, const std::string &path = "binarybenchmark.txt"){
+Monster findInBinary(int key, const std::string &path = "binarybenchmark.txt"){     //benchmark function
 
     std::ifstream binary(path, std::ios::binary | std::ios::out);
 
@@ -341,7 +341,7 @@ TextTable findByAttack(std::vector <Monster> &monsters, double attackChance) {
 
 TextTable findByTime(std::vector <Monster> &monsters, struct tm &lhs, struct tm &rhs){
 
-    lhs.tm_year -= 1900;
+    lhs.tm_year -= 1900;        //fixing structure bug
     rhs.tm_year -= 1900;
 
     time_t totalleft = mktime(&lhs);

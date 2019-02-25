@@ -7,7 +7,7 @@ time_t vectorTest(TextTable &t, size_t n){
     std::vector <Monster> base{n};
 
     auto begin = steady_clock::now();
-    std::vector <Monster> monsters(base);
+    std::vector <Monster> monsters(base);       //benchmarking speed of writing to vector
     auto end = steady_clock::now();
 
     time_t elapsed = duration_cast<milliseconds>(end - begin).count();
@@ -21,7 +21,7 @@ time_t vectorTest(TextTable &t, size_t n){
 
     for (auto i = 1; i < 3; ++i)
         for (auto& j : monsters)
-            if (strcmp (j.attackType, Monster::attackTypes[i]) == 0)
+            if (strcmp (j.attackType, Monster::attackTypes[i]) == 0)        //finding be attack type
                 continue;
 
 
@@ -35,7 +35,7 @@ time_t vectorTest(TextTable &t, size_t n){
 
     begin = steady_clock::now();
 
-    monsters.resize(n/2);
+    monsters.resize(n/2);               //deleting half of elements
     monsters.shrink_to_fit();
 
     end = steady_clock::now();
@@ -60,7 +60,7 @@ time_t TextTest(TextTable &t, size_t n){
     auto begin = steady_clock::now();
 
     saveToFile(monsters, "benchmark.txt");
-    monsters.clear();
+    monsters.clear();                            //benchmarking speed of writing and reading from file
 
     readFromFile(monsters, "benchmark.txt");
 
@@ -85,7 +85,7 @@ time_t TextTest(TextTable &t, size_t n){
 
     t.add(" " + std::to_string(elapsed) + " ");
 
-    std::ofstream benchmark("benchmark.txt", std::ofstream::trunc);
+    std::ofstream benchmark("benchmark.txt", std::ofstream::trunc);     //reseting file to write half of elements
 
     begin = steady_clock::now();
 
@@ -151,7 +151,7 @@ time_t BinaryTest(TextTable &t, size_t n){
     auto size = b.tellg();
 
     begin = steady_clock::now();
-    std::experimental::filesystem::resize_file("binarybenchmark.txt", size/2);
+    std::experimental::filesystem::resize_file("binarybenchmark.txt", size/2);      //removing half
     end = steady_clock::now();
     elapsed = duration_cast<milliseconds>(end - begin).count();
 
