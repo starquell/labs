@@ -1,3 +1,0 @@
-/home/starquell/CLionProjects/2semestr/Lab1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/starquell/CLionProjects/2semestr/Lab1/cmake-build-debug/CMakeFiles/Lab1.dir
-/home/starquell/CLionProjects/2semestr/Lab1/cmake-build-debug/CMakeFiles/edit_cache.dir

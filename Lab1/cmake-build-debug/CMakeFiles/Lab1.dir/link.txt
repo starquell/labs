@@ -1,1 +1,0 @@
-/usr/bin/g++  -g   CMakeFiles/Lab1.dir/main.cpp.o  -o Lab1 -lstdc++fs 
