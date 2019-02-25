@@ -230,7 +230,7 @@ void deleteMonster(std::vector <Monster> &monsters,  const std::string &name){
 }
 
 
-void modifyMonster(std::vector <Monster> &monsters, std::string name){
+void modifyMonster(std::vector <Monster> &monsters, const std::string &name){
 
     for (auto& i : monsters)
         if (strcmp(i.name, name.c_str()) == 0) {
@@ -355,4 +355,6 @@ TextTable findByTime(std::vector <Monster> &monsters, struct tm &lhs, struct tm 
 
     return t;
 }
+
+
 
