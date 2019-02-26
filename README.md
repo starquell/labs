@@ -1,3 +1,3 @@
 # labs
 
-Лабораторні роботи з університету.
+Labs from university
