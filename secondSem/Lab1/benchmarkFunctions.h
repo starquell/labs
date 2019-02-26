@@ -59,10 +59,10 @@ time_t TextTest(TextTable &t, size_t n){
 
     auto begin = steady_clock::now();
 
-    saveToFile(monsters, "benchmark.txt");
+    saveToFile(monsters, "databases/benchmark.txt");
     monsters.clear();                            //benchmarking speed of writing and reading from file
 
-    readFromFile(monsters, "benchmark.txt");
+    readFromFile(monsters, "databases/benchmark.txt");
 
     auto end = steady_clock::now();
     time_t elapsed = duration_cast<milliseconds>(end - begin).count();
@@ -85,7 +85,7 @@ time_t TextTest(TextTable &t, size_t n){
 
     t.add(" " + std::to_string(elapsed) + " ");
 
-    std::ofstream benchmark("benchmark.txt", std::ofstream::trunc);     //reseting file to write half of elements
+    std::ofstream benchmark("databases/benchmark.txt", std::ofstream::trunc);     //reseting file to write half of elements
 
     begin = steady_clock::now();
 
@@ -121,9 +121,9 @@ time_t BinaryTest(TextTable &t, size_t n){
 
     auto begin = steady_clock::now();
 
-    saveToBinary(monsters, "binarybenchmark.txt");
+    saveToBinary(monsters, "databases/binarybenchmark.txt");
     monsters.clear();
-    readFromBinary(monsters, "binarybenchmark.txt");
+    readFromBinary(monsters, "databases/binarybenchmark.txt");
 
     auto end = steady_clock::now();
     time_t elapsed = duration_cast<milliseconds>(end - begin).count();
@@ -146,12 +146,12 @@ time_t BinaryTest(TextTable &t, size_t n){
 
     t.add(" " + std::to_string(elapsed) + " ");
 
-    std::ifstream b("binarybenchmark.txt", std::ios::binary | std::ios::out);
+    std::ifstream b("databases/binarybenchmark.txt", std::ios::binary | std::ios::out);
     b.seekg (0, std::ios::end);
     auto size = b.tellg();
 
     begin = steady_clock::now();
-    std::experimental::filesystem::resize_file("binarybenchmark.txt", size/2);      //removing half
+    std::experimental::filesystem::resize_file("databases/binarybenchmark.txt", size/2);      //removing half
     end = steady_clock::now();
     elapsed = duration_cast<milliseconds>(end - begin).count();
 

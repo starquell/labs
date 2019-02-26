@@ -8,7 +8,7 @@ using std::this_thread::sleep_for;
 
 void menuOut (const std::string& begin, const std::string& end){        // reading and cout menu from "selector.txt"
 
-    std::ifstream selector("selector.txt");
+    std::ifstream selector("databases/selector.txt");
     std::string s;
     bool ourtext{};
 
@@ -42,7 +42,7 @@ void monstersOut(std::vector <Monster> &monsters){
     sleep_for(1.25s);
 }
 
-void saveToFile (std::vector <Monster> &monsters,  const std::string &path = "database.txt"){
+void saveToFile (std::vector <Monster> &monsters,  const std::string &path = "databases/database.txt"){
 
     std::ofstream file(path, std::ofstream::app);
 
@@ -58,7 +58,7 @@ void saveToFile (std::vector <Monster> &monsters,  const std::string &path = "da
     }
 }
 
-void readFromFile (std::vector <Monster> &monsters, const std::string &path = "database.txt"){
+void readFromFile (std::vector <Monster> &monsters, const std::string &path = "databases/database.txt"){
 
     std::ifstream file(path);
 
@@ -84,7 +84,7 @@ void readFromFile (std::vector <Monster> &monsters, const std::string &path = "d
     monsters.pop_back();  // deleting trash
 }
 
-Monster findInFile (int key, const std::string &path = "benchmark.txt"){        //benchmark function
+Monster findInFile (int key, const std::string &path = "databases/benchmark.txt"){        //benchmark function
 
     std::ifstream file(path);
 
@@ -109,7 +109,7 @@ Monster findInFile (int key, const std::string &path = "benchmark.txt"){        
     }
 }
 
-void saveToBinary(std::vector <Monster> &monsters, const std::string &path = "binarystorage.txt"){
+void saveToBinary(std::vector <Monster> &monsters, const std::string &path = "databases/binarystorage.txt"){
 
     std::ofstream binary(path, std::ios::binary | std::ios::out);
 
@@ -125,7 +125,7 @@ void saveToBinary(std::vector <Monster> &monsters, const std::string &path = "bi
     }
 }
 
-void readFromBinary(std::vector <Monster> &monsters, const std::string &path = "binarystorage.txt") {
+void readFromBinary(std::vector <Monster> &monsters, const std::string &path = "databases/binarystorage.txt") {
 
     std::ifstream binary(path, std::ios::binary | std::ios::out);
 
@@ -153,7 +153,7 @@ void readFromBinary(std::vector <Monster> &monsters, const std::string &path = "
     }
 }
 
-Monster findInBinary(int key, const std::string &path = "binarybenchmark.txt"){     //benchmark function
+Monster findInBinary(int key, const std::string &path = "databases/binarybenchmark.txt"){     //benchmark function
 
     std::ifstream binary(path, std::ios::binary | std::ios::out);
 

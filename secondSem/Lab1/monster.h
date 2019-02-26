@@ -44,13 +44,13 @@ public:
 
         strcpy (this->time, converttime.c_str());
 
-        std::ifstream idread("idstorage.txt");
+        std::ifstream idread("databases/idstorage.txt");
 
         idread >> ID;
         ++ID;
         idread.close();
 
-        std::ofstream idwrite("idstorage.txt", std::ofstream::trunc);
+        std::ofstream idwrite("databases/idstorage.txt", std::ofstream::trunc);
         idwrite << ID;
     }
 
@@ -109,13 +109,13 @@ public:
 
         strcpy(time, converttime.c_str());
 
-        std::ifstream idread("idstorage.txt");
+        std::ifstream idread("databases/idstorage.txt");
 
         idread >> ID;
         ++ID;
         idread.close();
 
-        std::ofstream idwrite("idstorage.txt", std::ofstream::trunc);
+        std::ofstream idwrite("databases/idstorage.txt", std::ofstream::trunc);
         idwrite << ID;
     };
 
