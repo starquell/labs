@@ -201,7 +201,7 @@ void benchmark (T &queue){
 
     for (size_t elem = 5;  elem < 100000; elem *= 5) {
 
-        t.add(" " + std::to_string(elem) + " ");
+        t.add(" " + std::to_string(elem) + " ");    // adding something to table
 
         auto begin = steady_clock::now();
         for (int i = 0; i < elem; ++i)
