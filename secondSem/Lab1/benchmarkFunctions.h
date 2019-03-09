@@ -15,8 +15,6 @@ time_t vectorTest(TextTable &t, size_t n){
     if (elapsed >= 10)
     limit = elapsed;
 
-    t.add(" " + std::to_string(elapsed) + " ");
-
     begin = steady_clock::now();
 
     for (auto i = 1; i < 3; ++i)
