@@ -14,7 +14,7 @@ public:
         head = nullptr;
     }
 
-    void push(T data) {
+    void push (T data) {
         if (!head)
             head = new Node{data};
         else {
