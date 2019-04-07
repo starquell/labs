@@ -36,6 +36,11 @@ void showSet() {
             return;
         }
 
+        if (size > 300000) {
+            cout << "Dont joke with mr Segmentation Fault\n"
+            return;
+        }
+
         cout << "Creating random array with size " << size << "...\n";
 
         std::string arr [size];
