@@ -10,7 +10,7 @@ using std::cout;
 namespace mySort {
 
     template<class T>
-    void selectionSort(T *arr, int beg, int end, bool show = false) {
+    void selectionSort(T *arr, int beg, int end, bool show = false) {       // bool show used for printing info for user int showmode
 
         int min;
 
@@ -165,7 +165,7 @@ namespace mySort {
                 sleep_for(1s);
             }
 
-            mergeSort(arr, left, mid, show);
+            mergeSort(arr, left, mid, show);             // comparison subarrays for next merge
             mergeSort(arr, mid + 1, right, show);
 
             merge(arr, left, mid, right, show);

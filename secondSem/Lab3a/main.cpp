@@ -15,7 +15,7 @@ void show (T *arr, size_t size, std::string_view setting);
 int main (int argc, char **argv) {
 
     if (argc > 1 && strcmp (argv[1], "--benchmark") == 0)
-        
+
        benchmarkSet();
 
     else
@@ -86,8 +86,8 @@ void show (T *arr, size_t size, std::string_view setting) {
     cout << "Sorting by quick sort from <algorithm> ...\n";
     sleep_for(1.2s);
 
-    std::sort (arr, arr + size);
-    std::sort (arr, arr + size, comp);
+    std::sort (arr, arr + size);              //  sorting lexicographically ar first
+    std::sort (arr, arr + size, comp);       //  then sort by length by custom comparator
 
-    arraySet (arr, size, true, "just array out");
+    arraySet (arr, size, true, "just array out");       // cout sorted array
 }
