@@ -32,3 +32,8 @@ bool comp (const std::string &lhs, const std::string &rhs) {    // comparator fo
 
     return lhs.size() < rhs.size();
 }
+
+bool reverse (const std::string &lhs, const std::string &rhs) {
+
+    return lhs > rhs;
+}

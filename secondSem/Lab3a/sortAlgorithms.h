@@ -10,15 +10,15 @@ using std::cout;
 namespace mySort {
 
     template<class T>
-    void selectionSort(T *arr, size_t n, bool show = false) {
+    void selectionSort(T *arr, int beg, int end, bool show = false) {
 
         int min;
 
-        for (int i = 0; i < n - 1; ++i) {
+        for (int i = beg; i < end; ++i) {
 
             min = i;
 
-            for (int j = i + 1; j < n; ++j)
+            for (int j = i + 1; j <= end; ++j)
                 if (arr[j] < arr[min])
                     min = j;
 
@@ -31,28 +31,28 @@ namespace mySort {
 
                 cout << "Rest of array : {";
 
-                for (int j = i + 1; j < n; ++j)
+                for (int j = i + 1; j < end; ++j)
                     cout << arr[j] << ' ';
                 cout << "}\n\n";
 
                 sleep_for(1s);
-            };
+            }
         }
     }
 
 
     template<class T>
-    void quickSort(T *arr, int beg, int end, bool show = false) {
+    void quickSort(T *arr, int beg, int end, bool show = false, bool combined = false) {
 
         int l = beg,
-                r = end;
+            r = end;
 
         T mid = arr[(l + r) / 2];
 
         if (show) {
             cout << "Sorting subarray: {";
 
-            for (int i = l; i <= r; ++i)
+            for (int i = l; i < r; ++i)
                 cout << arr[i] << ' ';
 
             cout << "}\n";
@@ -70,24 +70,35 @@ namespace mySort {
 
             if (l <= r) {
                 std::swap(arr[l++], arr[r--]);
-
             }
         }
 
-        if (r > beg)
-            quickSort(arr, beg, r, show);
-        if (l < end)
-            quickSort(arr, l, end, show);
+
+        if (r > beg) {
+
+            if (r - beg < 10 && combined)
+                selectionSort(arr, beg, r, show);
+            else
+                quickSort(arr, beg, r, show);
+        }
+
+        if (l < end) {
+
+            if (end - l < 10 && combined)
+                selectionSort(arr, l, end, show);
+            else
+                quickSort(arr, l, end, show);
+        }
     }
 
     template<class T>
-    void merge (T *arr, int left, int mid, int right, bool show = false) {
+    void merge(T *arr, int left, int mid, int right, bool show = false) {
 
         int leftSize = mid - left + 1;
         int rightSize = right - mid;
 
-        T tempLeft[leftSize],      // temporary arrays for merge
-                tempRight[rightSize];
+         T tempLeft[leftSize],      // temporary arrays for merge
+           tempRight[rightSize];
 
         for (int i = 0; i < leftSize; ++i)        // filling temps by halfs of out interval [left, right]
             tempLeft[i] = arr[left + i];
@@ -102,7 +113,7 @@ namespace mySort {
             for (int i = 0; i < leftSize; ++i)
                 cout << tempLeft[i] << ' ';
 
-            cout <<"} , { ";
+            cout << "} , { ";
 
             for (int i = 0; i < rightSize; ++i)
                 cout << tempRight[i] << ' ';
@@ -112,7 +123,7 @@ namespace mySort {
         }
 
         int i = 0,          // indexes for merge
-            j = 0;
+                j = 0;
         int k = left;       // starting index of arr[]
 
         while (i < leftSize && j < rightSize) {
@@ -159,5 +170,15 @@ namespace mySort {
 
             merge(arr, left, mid, right, show);
         }
+    }
+
+
+    template <class T>
+    void combinedSort(T *arr, size_t size, bool show = false) {
+
+        if (size > 10)
+            quickSort (arr, 0, size - 1, show, true);
+        else
+            selectionSort (arr, 0, size - 1, show);
     }
 }
