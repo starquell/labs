@@ -1,7 +1,7 @@
 #include <algorithm>
+#include "stringComparison.h"
 #include <chrono>
 #include <thread>
-#include "stringComparison.h"
 
 using namespace std::chrono_literals;
 using std::this_thread::sleep_for;
