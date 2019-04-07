@@ -1,3 +1,4 @@
+#include <string>
 
 bool operator< (const std::string &lhs, const std::string &rhs) {
 
