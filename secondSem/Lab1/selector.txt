@@ -11,7 +11,10 @@
     11. Find monsters using type of special attack
     12. Find monsters using chance of special attack higher than set
     13. Find using time
-    14. Show database
+    14. Sort monsters by attack type
+    15. Sort monsters by health
+    16. Custom sort
+    17. Show database
 - monster modify
  What has to be modified?   1. Name
                             2. Health points
@@ -24,3 +27,21 @@
                                      2. Repeat attack
                                      3. Heal
                                      4. Paralyse enemy
+- sort first
+ Choose parameter to sort firstly :
+                                     1. Name
+                                     2. Hp
+                                     3. Ap
+                                     4. Attack chance
+                                     5. Attack type
+                                     6. Time
+- sort second
+Choose parameter to sort secondly :
+                                     1. Name
+                                     2. Hp
+                                     3. Ap
+                                     4. Attack chance
+                                     5. Attack type
+                                     6. Time
+
+    Press any other key to sort only by first parameter

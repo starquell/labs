@@ -2,6 +2,7 @@
 #include "stringComparison.h"
 #include <chrono>
 #include <thread>
+#include <utility>
 
 using namespace std::chrono_literals;
 using std::this_thread::sleep_for;
@@ -68,9 +69,10 @@ namespace mySort {
             while (arr[r] > mid)
                 --r;
 
-            if (l <= r) {
+            if (l <= r)
+
                 std::swap(arr[l++], arr[r--]);
-            }
+
         }
 
 

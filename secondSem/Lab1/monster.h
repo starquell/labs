@@ -30,7 +30,7 @@ public:
     static std::map<int, const char*> attackTypes;
 
 
-    Monster(const std::string &name, int hp, int ap, double attackChance, const std::string &attackType){
+    Monster (const std::string &name, int hp, int ap, double attackChance, const std::string &attackType){
 
         strcpy (this->name, name.c_str());
         this->hp = hp;
@@ -71,9 +71,9 @@ public:
         this->ID = ID;
     }
 
-    Monster() {
+    Monster () {
 
-        static const std::array<const char*, 9> monsterNames = {
+        static const std::array <const char*, 9> monsterNames = {
 
                 "Agnesoid", "Skyrdos",
                 "Morrowind", "Pneumothorax",
@@ -82,7 +82,7 @@ public:
                 "Paradontax"
         };
 
-        static std::map<int, const char*> attackTypes = {
+        static std::map <int, const char*> attackTypes = {
                 {1, "Double attack"},
                 {2, "Repeat attack"},
                 {3, "Heal"},
@@ -132,9 +132,10 @@ public:
 
 };
 
-decltype(Monster::attackTypes) Monster::attackTypes = {
+decltype (Monster::attackTypes) Monster::attackTypes = {
         {1, "Double attack"},
         {2, "Repeat attack"},
         {3, "Heal"},
         {4, "Paralyse enemy"}
 };
+

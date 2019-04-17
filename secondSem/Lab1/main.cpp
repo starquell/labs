@@ -1,6 +1,7 @@
 #include "monster.h"
 #include "databaseFunctions.h"
 #include "benchmarkFunctions.h"
+#include "sort.h"
 
 using namespace std::chrono;
 
@@ -144,12 +145,12 @@ void presentation(){
 
 void Selector (std::vector <Monster> &monsters) {
 
-    struct tm lhs, rhs;
+    tm lhs, rhs;
     std::string name;
     int choice, specialAttack;
     double attackChance;
 
-    menuOut("bof", "    14. Show database");
+    menuOut("bof", "    17. Show database");
 
     cout << '\n';
     cin >> choice;
@@ -224,7 +225,7 @@ void Selector (std::vector <Monster> &monsters) {
 
         case 11: {
 
-            menuOut("- special attack selection", "eof");
+            menuOut("- special attack selection", "-                                     4. Paralyse enemy");
 
             cin >> specialAttack;
 
@@ -252,7 +253,14 @@ void Selector (std::vector <Monster> &monsters) {
             break;
         }
 
-        case 14:    monstersOut(monsters);
+        case 14:    countingSort(monsters);
+                    break;
+
+        case 15:    radixSort (monsters);
+                    break;
+
+        case 16:    customSort (monsters);
+        case 17:    monstersOut(monsters);
                     break;
 
           default:

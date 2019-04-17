@@ -14,12 +14,29 @@ void show (T *arr, size_t size, std::string_view setting);
 
 int main (int argc, char **argv) {
 
-    if (argc > 1 && strcmp (argv[1], "--benchmark") == 0)
+ /*   if (argc > 1 && strcmp (argv[1], "--benchmark") == 0)
 
        benchmarkSet();
 
     else
-        showSet();
+       showSet(); */
+
+
+    TextTable t;
+
+    std::vector <int> arr (500000);
+    int size = 500000;
+
+    for (auto &i : arr)
+        i = rand() % 1000;
+
+    cout << "Benchmark in quick sort...\n";
+
+    auto elapsed = benchAlgorithm ([&arr, size] () mutable {
+        std::sort (arr.begin(), arr.end());
+    });
+
+    cout << "\n\n\n\n\n\n\n" << elapsed;
 
     return 0;
 }
@@ -37,7 +54,7 @@ void showSet() {
         }
 
         if (size > 300000) {
-            cout << "Dont joke with mr Segmentation Fault\n"
+            cout << "Dont joke with mr Segmentation Fault\n";
             return;
         }
 

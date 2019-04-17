@@ -8,7 +8,7 @@ using std::this_thread::sleep_for;
 
 void menuOut (const std::string& begin, const std::string& end){        // reading and cout menu from "selector.txt"
 
-    std::ifstream selector("databases/selector.txt");
+    std::ifstream selector("../selector.txt");
     std::string s;
     bool ourtext{};
 
@@ -42,7 +42,7 @@ void monstersOut(std::vector <Monster> &monsters){
     sleep_for(1.25s);
 }
 
-void saveToFile (std::vector <Monster> &monsters,  const std::string &path = "databases/database.txt"){
+void saveToFile (std::vector <Monster> &monsters,  const std::string &path = "../databases/database.txt"){
 
     std::ofstream file(path, std::ofstream::app);
 
@@ -58,9 +58,10 @@ void saveToFile (std::vector <Monster> &monsters,  const std::string &path = "da
     }
 }
 
-void readFromFile (std::vector <Monster> &monsters, const std::string &path = "databases/database.txt"){
+void readFromFile (std::vector <Monster> &monsters, const std::string &path = "../databases/database.txt"){
 
     std::ifstream file(path);
+    assert(file.is_open());
 
     std::string name, attackType;
     int hp, ap, ID;
@@ -84,7 +85,7 @@ void readFromFile (std::vector <Monster> &monsters, const std::string &path = "d
     monsters.pop_back();  // deleting trash
 }
 
-Monster findInFile (int key, const std::string &path = "databases/benchmark.txt"){        //benchmark function
+Monster findInFile (int key, const std::string &path = "../databases/benchmark.txt"){        //benchmark function
 
     std::ifstream file(path);
 
@@ -109,23 +110,23 @@ Monster findInFile (int key, const std::string &path = "databases/benchmark.txt"
     }
 }
 
-void saveToBinary(std::vector <Monster> &monsters, const std::string &path = "databases/binarystorage.txt"){
+void saveToBinary(std::vector <Monster> &monsters, const std::string &path = "../databases/binarystorage.txt"){
 
     std::ofstream binary(path, std::ios::binary | std::ios::out);
 
     for (auto& i : monsters){
 
         binary.write(i.name, sizeof(i.name));
-        binary.write(reinterpret_cast<char*>(&i.hp), sizeof(i.hp));
-        binary.write(reinterpret_cast<char*>(&i.ap), sizeof(i.ap));
-        binary.write(reinterpret_cast<char*>(&i.attackChance), sizeof(i.attackChance));
-        binary.write(reinterpret_cast<char*>(&i.timeInSec) , sizeof(i.timeInSec));
-        binary.write(reinterpret_cast<char*>(&i.ID) , sizeof(i.ID));
+        binary.write(reinterpret_cast<char*> (&i.hp), sizeof(i.hp));
+        binary.write(reinterpret_cast<char*> (&i.ap), sizeof(i.ap));
+        binary.write(reinterpret_cast<char*> (&i.attackChance), sizeof(i.attackChance));
+        binary.write(reinterpret_cast<char*> (&i.timeInSec) , sizeof(i.timeInSec));
+        binary.write(reinterpret_cast<char*> (&i.ID) , sizeof(i.ID));
         binary.write(i.attackType , sizeof(i.attackType));
     }
 }
 
-void readFromBinary(std::vector <Monster> &monsters, const std::string &path = "databases/binarystorage.txt") {
+void readFromBinary(std::vector <Monster> &monsters, const std::string &path = "../databases/binarystorage.txt") {
 
     std::ifstream binary(path, std::ios::binary | std::ios::out);
 
@@ -153,7 +154,7 @@ void readFromBinary(std::vector <Monster> &monsters, const std::string &path = "
     }
 }
 
-Monster findInBinary(int key, const std::string &path = "databases/binarybenchmark.txt"){     //benchmark function
+Monster findInBinary(int key, const std::string &path = "../databases/binarybenchmark.txt"){     //benchmark function
 
     std::ifstream binary(path, std::ios::binary | std::ios::out);
 
@@ -209,7 +210,7 @@ void addMonster(std::vector <Monster> &monsters){
         cin >> attackChance;
     while (attackChance < 0 || attackChance > 1);
 
-    menuOut("- special attack selection", "eof");
+    menuOut("- special attack selection", "- sort first");
 
     int choice;
 
@@ -230,7 +231,7 @@ void deleteMonster(std::vector <Monster> &monsters,  const std::string &name){
 }
 
 
-void modifyMonster(std::vector <Monster> &monsters, std::string name){
+void modifyMonster(std::vector <Monster> &monsters, std::string &name){
 
     for (auto& i : monsters)
         if (strcmp(i.name, name.c_str()) == 0) {
@@ -355,6 +356,3 @@ TextTable findByTime(std::vector <Monster> &monsters, struct tm &lhs, struct tm 
 
     return t;
 }
-
-
-
