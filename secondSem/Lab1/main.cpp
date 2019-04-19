@@ -1,13 +1,13 @@
 #include "monster.h"
 #include "databaseFunctions.h"
 #include "benchmarkFunctions.h"
-#include "sort.h"
 
 using namespace std::chrono;
 
 void presentation(),
      benchmark(),
-     interactive();
+     interactive(),
+     benchSort();
 
 void Selector(std::vector <Monster> &monsters);
 
@@ -17,8 +17,14 @@ int main(int argc, char** argv) {
     if (argc > 1) {
         std::string parameter(argv[1]);
 
-        if (parameter == "--benchmark")
+        if (parameter == "--benchmark") {
+
+            if (argc > 2 && strcmp (argv[2], "--sort") == 0)
+                benchSort();
+            else
             benchmark();
+        }
+
         if (parameter == "--presentation")
             presentation();
     }

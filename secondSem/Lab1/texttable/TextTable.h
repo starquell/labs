@@ -22,6 +22,16 @@ class TextTable {
             add(" Deleting half of data ");
             endOfRow();
         }
+
+        else if (s == 's') {
+
+            add(" ");
+            add(" Counting sort ");
+            add(" Radix sort ");
+            add(" STL sort by hp ");
+            add(" STL sort by attack then by hp");
+            endOfRow();
+        }
         else {
             add(" ");
             add(" Health ");

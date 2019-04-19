@@ -1,4 +1,3 @@
-#include <any>
 #include <algorithm>
 
 void countingSort (std::vector <Monster> &monsters) {       // sorting by attack type
@@ -13,7 +12,7 @@ void countingSort (std::vector <Monster> &monsters) {       // sorting by attack
 
     constexpr int range = 4;    // 4 attack types
 
-    int count [range]; //  0 0 1 1
+    int count [4] = {0, 0, 0, 0}; //  0 0 1 1
     std::vector <Monster> temp (monsters);
 
     for (auto &i : monsters)
@@ -22,8 +21,8 @@ void countingSort (std::vector <Monster> &monsters) {       // sorting by attack
     for (int i = 1; i < range; ++i)
         count[i] += count [i - 1];
 
-    for (int i = monsters.size() - 1; i >= 0; --i)
-    {
+    for (int i = monsters.size() - 1; i >= 0; --i) {
+
         temp [ count [ keys[monsters[i].attackType] ]  - 1] = monsters[i];
         --count [keys[monsters[i].attackType]];
     }
@@ -43,8 +42,10 @@ void radixSort (std::vector <Monster> &monsters) {
 
     for (int exp = 1; max / exp > 0; exp *= 10) {
 
-        std::vector <Monster> temp (monsters.size());
-        int count [10];
+        std::vector <Monster> temp (monsters);
+
+        int count [10] = {0, 0, 0, 0, 0,
+                          0, 0, 0, 0, 0};
 
         for (auto &i : monsters)
             ++count [(i.hp / exp) % 10];
@@ -52,7 +53,7 @@ void radixSort (std::vector <Monster> &monsters) {
         for (int i = 1; i < 10; ++i)
             count[i] += count[i - 1];
 
-        for (int i = monsters.size() - 1; i >= 0; ++i) {
+        for (int i = monsters.size() - 1; i >= 0; --i) {
 
             temp [count [(monsters[i].hp / exp) % 10] - 1] = monsters [i];
             --count [(monsters[i].hp / exp) % 10];

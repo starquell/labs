@@ -1,4 +1,81 @@
 #include <experimental/filesystem>
+#include <algorithm>
+#include "sort.h"
+
+time_t benchAlgorithm (std::function <void ()> const &someSort) {
+
+    using namespace std::chrono;
+
+    auto begin = steady_clock::now();
+    someSort ();
+    auto end = steady_clock::now();
+
+    return duration_cast<milliseconds>(end - begin).count();
+}
+
+void benchSort () {
+
+    TextTable t ('-', '|', '+', 's');
+
+    cout << "\n*****************************\n\n"
+         << "  Benchmarking sort algorithms...\n";
+
+    for (size_t i = 50; i < 10000000; i *= 50) {
+
+        std::vector <Monster> testMonsters (i);
+
+        auto seed = system_clock::now().time_since_epoch().count();
+        std::default_random_engine random (seed);
+
+        t.add (" " + std::to_string (i) + " ");
+
+        auto elapsed = benchAlgorithm ([&testMonsters] () mutable {
+            countingSort (testMonsters);
+        } );
+
+        t.add(" " + std::to_string (elapsed) + " ");
+
+        std::shuffle (testMonsters.begin(), testMonsters.end(), random);
+
+        elapsed = benchAlgorithm ([&testMonsters] () mutable {
+            radixSort (testMonsters);
+        } );
+
+        t.add (" " + std::to_string (elapsed) + " ");
+
+        std::shuffle (testMonsters.begin(), testMonsters.end(), random);
+
+        elapsed = benchAlgorithm ([&testMonsters] () mutable {
+
+            std::stable_sort (testMonsters.begin(), testMonsters.end(),
+                    [] (const Monster &lhs, const Monster &rhs) {
+                        return lhs.hp < rhs.hp;
+            });
+        } );
+
+        t.add (" " + std::to_string (elapsed) + " ");
+
+        std::shuffle (testMonsters.begin(), testMonsters.end(), random);
+
+        elapsed = benchAlgorithm ([&testMonsters] () mutable {
+            std::stable_sort (testMonsters.begin(), testMonsters.end(),
+
+                    [] (const Monster &lhs, const Monster &rhs) {
+                if (strcmp (lhs.attackType, rhs.attackType) != 0)
+                    return strcmp (lhs.attackType, rhs.attackType) < 0;
+                else
+                    return lhs.hp < rhs.hp;
+            });
+        });
+
+        t.add (" " + std::to_string (elapsed) + " ");
+        t.endOfRow();
+    }
+
+    cout << t;
+
+    exit(0);
+}
 
 time_t vectorTest(TextTable &t, size_t n){
 
