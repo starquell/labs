@@ -83,6 +83,7 @@ public:
         };
 
         static std::map <int, const char*> attackTypes = {
+
                 {1, "Double attack"},
                 {2, "Repeat attack"},
                 {3, "Heal"},

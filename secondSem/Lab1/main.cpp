@@ -6,8 +6,7 @@ using namespace std::chrono;
 
 void presentation(),
      benchmark(),
-     interactive(),
-     benchSort();
+     interactive();
 
 void Selector(std::vector <Monster> &monsters);
 
