@@ -1,26 +1,34 @@
+#ifndef FILESYSTEM_H
+#define FILESYSTEM_H
+
 #include <boost/algorithm/string/split.hpp>
 #include <boost/algorithm/string/classification.hpp>
-#include "directory.cpp"
+#include "directory.h"
+#include "File.h"
 
 class Filesystem {
 
-    Directory *root;
+    Directory *mRoot;
 
 public:
 
-    explicit Filesystem (std::string_view startName)
+    explicit Filesystem(std::string_view startName)
 
-            : root (new Directory (startName))
-    {}
+            : mRoot(new Directory(startName)) {}
 
-    Directory* findDirectory (std::string path) const {
+    Directory* root() const {
+
+        return mRoot;
+    }
+
+    Directory* findDirectory(std::string path) const {
 
         using namespace boost::algorithm;
 
-        std::vector <std::string> directories;
+        std::vector<std::string> directories;
         split(directories, path, is_any_of("/"));
 
-        auto temp = root;
+        auto temp = mRoot;
 
         for (const auto &i : directories) {
 
@@ -39,11 +47,11 @@ public:
 
     File* findFile (std::string path) const {
 
-        size_t point = path.rfind ('/');
-        auto filename = path.substr (point, path.size());
+        size_t point = path.rfind('/');
+        auto filename = path.substr (point + 1, path.size());
 
-        path.resize (point);
-        auto ourDir = findDirectory (path);
+        path.resize(point);
+        auto ourDir = findDirectory(path);
 
         for (auto &i : ourDir->files)
             if (i->name() == filename)
@@ -52,8 +60,17 @@ public:
         return nullptr;
     }
 
+    void createDir (std::string path, std::string_view _name) {
+
+        findDirectory(std::move(path))->createDir(_name);
+    }
+
+
+    void createFile (std::string path, std::string_view _name, size_t size) {
+
+        findDirectory(std::move(path))->createFile(_name, size);
+    }
 
 };
 
-
-
+#endif

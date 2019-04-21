@@ -1,51 +1,50 @@
-#include <vector>
-#include <algorithm>
-#include "File.h"
 #include "directory.h"
+#include "File.h"
+
+#include <algorithm>
+#include <limits>
+#include <iostream>
+
 
 time_t Directory::lastChangeInSec () const {
 
-    time_t time;
+    time_t maxInChildren{};
 
     const auto max = std::max_element (files.begin(), files.end(),
 
-            [] (const File& max, const File& el) {
-                return max.changeInSec() < el.changeInSec();
+            [] (const File* max, const File* el) {
+                return max->changeInSec() < el->changeInSec();
     });
 
-    for (auto &i : children)
+    for (auto &i: children)
+        maxInChildren = std::max (maxInChildren, i->lastChangeInSec());
 
-        time = i->lastChangeInSec();
-
-
-    return std::max ((*max)->changeInSec(), time);
+    return std::max ((*max)->changeInSec(), maxInChildren);
 }
 
 
 time_t Directory::firstChangeInSec () const {
 
-    time_t time;
+    time_t minInChildren = std::numeric_limits <time_t>::max();
 
     const auto min = std::min_element (files.begin(), files.end(),
 
-            [] (const File& min, const File& el) {
-                return min.changeInSec() < el.changeInSec();
+            [] (const File* min, const File* el) {
+                return min->changeInSec() < el->changeInSec();
     });
 
 
     for (auto &i : children)
 
-        time = i->firstChangeInSec();
+       minInChildren = std::min (minInChildren, i->firstChangeInSec());
 
-    if (!children.empty())
-        return std::min ((*min)->changeInSec(), time);
-    else
-        return (*min)->changeInSec();
+        return std::min ((*min)->changeInSec(), minInChildren);
 }
 
-Directory::Directory (std::string_view _name)
+Directory::Directory (std::string_view _name, Directory* _parent)
 
-            : name (_name)
+            : name (_name),
+              parent (_parent)
 
             {}
 
@@ -99,7 +98,38 @@ std::string Directory::firstChange () const {
     return std::ctime (&first);
 }
 
-void Directory::createFile (std::string_view filename) {
+void Directory::createFile (std::string_view filename, size_t size) {
 
-  //  children.push_back (new File (filename, this));
+    files.push_back (new File (filename, this, size));
+}
+
+void Directory::createDir(std::string_view dirname) {
+
+    children.push_back (new Directory (dirname, this));
+}
+
+std::string Directory::getPath (std::string &temp) const {
+
+    if (parent)
+         parent->getPath(temp);
+
+    return temp + "/" + this->name;
+}
+
+void Directory::showAll() const {
+
+    std::cout << '<' << name << "> path: " << path() << '\n';
+
+    for (auto &i : files)
+
+        std::cout << "\t (File) " << i->name() << " path: " << i->path();
+
+
+    for (auto &i : children) {
+
+        std::cout << '\t';
+        i->showAll();
+    }
+
+
 }

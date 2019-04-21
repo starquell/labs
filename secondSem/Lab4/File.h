@@ -1,15 +1,18 @@
+#ifndef LAB4_FILE_H
+#define LAB4_FILE_H
+
 #include <string>
 #include <chrono>
 #include <ctime>
 
-struct Directory;
-
 using namespace std::chrono;
+
+class Directory;
 
 class File {
 
-    Directory* dir;
     std::string mName;
+    Directory* dir;
     size_t mSize;
     time_t mLastChange;
 
@@ -17,48 +20,24 @@ public:
 
     File () = default;
 
-    explicit File (std::string_view name, Directory *parent, size_t size = 0)
-        : mName(name),
-          mSize(size),
-          dir (parent),
-          mLastChange (system_clock::to_time_t (system_clock::now()))
+    explicit File (std::string_view name, Directory *parent, size_t size = 0);
 
-    {}
+    std::string name() const;
 
-    std::string name() const {
+    void rename (std::string_view name);
 
-        return mName;
-    }
+    size_t size() const;
 
-    void rename (std::string_view name) {
+    void resize (size_t size);
 
-        mName = name;
-        mLastChange = system_clock::to_time_t (system_clock::now());
-    }
+    std::string lastChange () const;
 
-    size_t size() const {
+    time_t changeInSec () const;
 
-        return mSize;
-    }
+    Directory* directory () const;
 
-    void resize (size_t size) {
+    std::string path() const;
 
-        mSize = size;
-        mLastChange = system_clock::to_time_t (system_clock::now());
-    }
-
-    std::string lastChange () const {
-
-        return std::ctime (&mLastChange);
-    }
-
-    time_t changeInSec () const {
-
-        return mLastChange;
-    }
-
-    Directory* directory () const {
-
-        return dir;
-    }
 };
+
+#endif //LAB4_FILE_H
