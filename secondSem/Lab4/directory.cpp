@@ -1,5 +1,5 @@
 #include "directory.h"
-#include "File.h"
+#include "file.h"
 
 #include <algorithm>
 #include <limits>
@@ -48,6 +48,7 @@ Directory::Directory (std::string_view _name, Directory* _parent)
 
             {}
 
+
 size_t Directory::sizeCalculate () const {
 
     size_t size{};
@@ -73,6 +74,23 @@ size_t Directory::subDirectories () const {
 
     return count;
 }
+
+void Directory::findByNameHelper (std::string_view _name, std::vector <std::string> &paths) const {
+
+    for (auto &i : children) {
+
+        i->findByNameHelper (_name, paths);
+
+        if (i->name == _name)
+            paths.push_back (i->path());
+        }
+
+    for (auto &i : files)
+        if (i->name() == _name)
+            paths.push_back(i->path());
+
+}
+
 
 size_t Directory::nestedFiles() const {
 
@@ -111,25 +129,60 @@ void Directory::createDir(std::string_view dirname) {
 std::string Directory::getPath (std::string &temp) const {
 
     if (parent)
-         parent->getPath(temp);
+         temp = parent->getPath(temp);
 
-    return temp + "/" + this->name;
+    return temp + "/" + name;
 }
 
 void Directory::showAll() const {
 
+
+    static auto dirDepth = [](std::string_view path) {
+
+        int counter {};
+
+        for (const char &i : path)
+            if (i == '/')
+                ++counter;
+
+        return counter;
+    };
+
     std::cout << '<' << name << "> path: " << path() << '\n';
 
-    for (auto &i : files)
+    for (auto &i : files) {
 
-        std::cout << "\t (File) " << i->name() << " path: " << i->path();
+        int depth = dirDepth (i->path());
 
+        for (int j = 0; j < depth; ++j)
+            std::cout << '\t';
+
+        std::cout << "  (File)  " << i->name() << " path: " << i->path() << '\n';
+    }
 
     for (auto &i : children) {
 
-        std::cout << '\t';
+        int depth = dirDepth (i->path());
+
+        for (int j = 0; j < depth; ++j)
+            std::cout << '\t';
+
         i->showAll();
     }
+}
 
+    Directory::~Directory() {
 
+        for (auto &i : files)
+            delete i;
+
+        for (auto &i : children)
+            delete i;
+    }
+
+    void Directory::info() const {
+
+    std::cout << "\tDirectory size : " << sizeCalculate()
+              << " bytes. \n\tNested files : " << nestedFiles()
+              << ". \n\tSubdirectories : " << subDirectories() << ".\n\n";
 }

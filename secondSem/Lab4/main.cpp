@@ -1,38 +1,41 @@
-#include "Filesystem.h"
-#include <thread>
-#include <iostream>
+#include <fstream>
+#include <cassert>
+
+#include "filesystem.h"
+#include "binarytree.h"
+#include "interactive.h"
 
 
-int main() {
+int main (int argc, char **argv) {
 
+    bool show {};
+    std::ifstream showfile ("../show.txt");
+    assert (showfile.is_open());
 
-    Filesystem f("shit");
+    if (argc > 1 && std::string (argv [1]) == "--show") {
 
-    f.root()->createDir("here");
+        cin.rdbuf(showfile.rdbuf());
+        show = true;
+    }
 
-    std::cout << f.root()->children.front()->name;
+        int choice;
 
-    f.root()->children.front()->createDir("we");
+        cout << "Enter 1 to Binary tree with integers mode,"
+             << "else - Filesystem mode  ";
+        cin >> choice;
 
-    f.findDirectory("/here/we")->name = "lelius";
+        if (choice == 1) {
 
-    std::cout << ' ' << f.findDirectory("/here/lelius")->name;
+            BinaryTree<int> btree{};
+            while (true)
+                binaryInteractive (btree);
+        }
 
-    f.createFile("/here/lelius", "gk", 43);
-
-  //  std::cout << f.findDirectory("/here/lelius/gk")->name;
-  //
- //   std::cout << f.findDirectory("/here/lelius")->files.front()->name();
-
-    f.findFile ("/here/lelius/gk")->rename("renamed");
-
-    std::cout << f.findFile ("/here/lelius/renamed")->name();
-
-
-    std::cout << "\n\n\n";
-
-  //  f.root()->showAll();
-
+        else {
+            Filesystem fs;
+            while (true)
+                interactive(fs, show);
+        }
 
     return 0;
 }

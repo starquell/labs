@@ -3,8 +3,7 @@
 
 #include <string>
 #include <vector>
-
-struct File;
+#include "file.h"
 
 struct Directory {
 
@@ -29,6 +28,11 @@ public:
 
     explicit Directory (std::string_view _name, Directory *_parent = nullptr);
 
+    Directory () = default;
+
+    ~Directory ();
+
+
     size_t sizeCalculate () const;
 
     size_t subDirectories () const;
@@ -38,6 +42,8 @@ public:
     std::string lastChange () const;
 
     std::string firstChange () const;
+
+    void findByNameHelper (std::string_view _name, std::vector <std::string> &paths) const;
 
     void createFile (std::string_view filename, size_t size = 0);
 
@@ -51,6 +57,7 @@ public:
 
     void showAll () const;
 
+    void info () const;
 };
 
 

@@ -1,9 +1,10 @@
 #ifndef LAB4_FILE_H
 #define LAB4_FILE_H
 
-#include <string>
 #include <chrono>
 #include <ctime>
+#include <iostream>
+#include "directory.h"
 
 using namespace std::chrono;
 
@@ -15,6 +16,8 @@ class File {
     Directory* dir;
     size_t mSize;
     time_t mLastChange;
+
+    friend class Filesystem;
 
 public:
 
@@ -38,6 +41,7 @@ public:
 
     std::string path() const;
 
+    void info() const;
 };
 
 #endif //LAB4_FILE_H
