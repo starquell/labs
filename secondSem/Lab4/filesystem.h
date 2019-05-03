@@ -10,7 +10,7 @@
 #include "file.h"
 
 
-class Filesystem {
+class Filesystem {           // Task 1
 
     Directory *mRoot;
 
@@ -30,7 +30,7 @@ public:
         return mRoot;
     }
 
-    Directory* findDirectory (std::string path) const {
+    Directory* findDirectory (std::string path) const {     // part of task 2
 
         using namespace boost::algorithm;
 
@@ -54,7 +54,7 @@ public:
         return temp;
     }
 
-    File* findFile (std::string path) const {
+    File* findFile (std::string path) const {       // part of task 2
 
         size_t point = path.rfind('/');
         auto filename = path.substr (point + 1, path.size());
@@ -71,7 +71,7 @@ public:
 
 
 
-    std::vector <std::string> findByName (std::string_view name) const {
+    std::vector <std::string> findByName (std::string_view name) const {    // part of task 2
 
          std::vector <std::string> paths;
          mRoot->findByNameHelper (name, paths);
@@ -79,18 +79,18 @@ public:
     }
 
 
-    void createDir (std::string path, std::string_view _name) {
+    void createDir (std::string path, std::string_view _name) {   // part of task 3
 
         findDirectory(std::move(path))->createDir(_name);
     }
 
 
-    void createFile (std::string path, std::string_view _name, size_t size) {
+    void createFile (std::string path, std::string_view _name, size_t size) {  // part of task 3
 
         findDirectory (std::move(path))->createFile(_name, size);
     }
 
-    Directory* deleteDir (std::string_view path) {
+    Directory* deleteDir (std::string_view path) {      // task 13
 
         auto parent = findDirectory(path.data())->parent;
         std::string ourName = findDirectory(path.data())->name;
@@ -120,7 +120,7 @@ public:
     }
 
 
-    File* deleteFile (std::string_view path) {
+    File* deleteFile (std::string_view path) {      //task 13
 
         auto parent = findFile (path.data())->directory();
         std::string ourName = findFile (path.data())->name();

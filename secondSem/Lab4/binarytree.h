@@ -6,7 +6,7 @@ template <class T>
 class ArrayTree;
 
 template <class T>
-class BinaryTree {
+class BinaryTree {      // task 18
 
     struct BinaryNode {
 
@@ -101,7 +101,7 @@ struct ArrayTree {
 };
 
 template <class T>
-void transformHelper (const typename BinaryTree <T>::BinaryNode *&root, std::vector <T> &arr) {
+void transformHelper (const typename BinaryTree <T>::BinaryNode *&root, std::vector <T> &arr) {  // part of task 21
 
     if (!root)
         return;
@@ -118,7 +118,7 @@ void transformHelper (const typename BinaryTree <T>::BinaryNode *&root, std::vec
 }
 
 template <class T>
-std::vector <ArrayTree <T>> transformToArray (const BinaryTree <T> &tree) {
+std::vector <ArrayTree <T>> transformToArray (const BinaryTree <T> &tree) {         // task 21
 
     std::vector <T> arr;
 
