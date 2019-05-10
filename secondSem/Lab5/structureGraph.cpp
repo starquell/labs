@@ -1,7 +1,7 @@
 #include "structureGraph.hpp"
 #include "matrixgraph.hpp"
 
-template<class Stream>
+template <class Stream>
 Stream &operator<<(Stream &stream, StructureGraph &graph) {
 
     for (size_t i = 0; i < graph.mList.size(); ++i) {
@@ -18,9 +18,26 @@ Stream &operator<<(Stream &stream, StructureGraph &graph) {
 
 StructureGraph::StructureGraph(size_t n, bool isOriented)
 
-        : mList(n),
+        : mList (n),
           oriented (isOriented)
 {}
+
+StructureGraph::StructureGraph (const MatrixGraph &graph)
+
+        : mList (graph.mMatrix.size()),
+          oriented (graph.oriented)
+
+{
+    auto size = graph.mMatrix.size();
+
+    for (size_t i = 0; i < size; ++i)
+
+        for (size_t j = 0; j < size; ++j)
+
+            if (graph.mMatrix[i][j])
+                mList[i].push_back(j);
+}
+
 
 void StructureGraph::addEdge(size_t n, size_t m) {
 

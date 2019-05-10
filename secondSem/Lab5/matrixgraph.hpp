@@ -20,18 +20,9 @@ class MatrixGraph {
 
 public:
 
-    explicit MatrixGraph (int n, bool isOriented = false)
+    explicit MatrixGraph (int n, bool isOriented = false);
 
-        : mMatrix (n, std::vector <bool> (n, false)),
-          oriented (isOriented)
-    {}
-
-    explicit MatrixGraph (const StructureGraph &graph)
-
-        : mMatrix (graph.mList.size();, std::vector <bool> (graph.mList.size();, false)),
-          oriented (graph.oriented)
-
-    {}
+    explicit MatrixGraph (const StructureGraph &graph);
 
     void addEdge (int m, int n);
 };

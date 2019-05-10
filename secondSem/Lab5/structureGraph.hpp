@@ -1,9 +1,9 @@
 #ifndef LAB5_STRUCTUREGRAPH_HPP
 #define LAB5_STRUCTUREGRAPH_HPP
 
-#include "matrixgraph.hpp"
-
 #include <vector>
+
+class MatrixGraph;
 
 class StructureGraph {
 
