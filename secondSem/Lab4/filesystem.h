@@ -4,11 +4,26 @@
 #include <boost/algorithm/string/split.hpp>
 #include <boost/algorithm/string/classification.hpp>
 #include <algorithm>
-#include <memory>
+#include <optional>
+#include <limits>
+#include <regex>
 
 #include "directory.h"
 #include "file.h"
 
+struct FilterForm {
+
+    std::optional <std::regex> name;
+    size_t minSize;
+    std::optional <size_t> maxSize;
+
+    FilterForm (std::optional <std::regex> _name,  std::optional <size_t> _maxSize, size_t _minSize)
+
+            : name (std::move (_name)),
+              minSize (_minSize),
+              maxSize (std::move (_maxSize))
+    {}
+};
 
 class Filesystem {           // Task 1
 
@@ -141,6 +156,42 @@ public:
         newFile->dir = nullptr;
 
         return newFile;
+    }
+
+
+    void filter (const FilterForm &criteria) {
+
+        filterHelper (mRoot, criteria);
+    }
+
+private:
+
+    void filterHelper (Directory *dir, const FilterForm &criteria) {
+
+        for (auto it = dir->children.begin(); it < dir->children.end();) {
+
+            if (!std::regex_match((*it)->name.begin(), (*it)->name.end(), criteria.name.value_or (std::regex (".*"))))
+
+                it = dir->children.erase (it);
+
+            else {
+
+                filterHelper (*it, criteria);
+                ++it;
+            }
+        }
+
+        for (auto it = dir->files.begin(); it < dir->files.end();) {
+
+            if (!std::regex_match((*it)->name().begin(), (*it)->name().end(), criteria.name.value_or (std::regex (".*")))
+                || (*it)->size() < criteria.minSize
+                || (*it)->size() > criteria.maxSize.value_or (std::numeric_limits<size_t>::max()))
+
+                it = dir->files.erase (it);
+
+            else
+                ++it;
+            }
     }
 };
 

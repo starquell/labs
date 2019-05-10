@@ -24,6 +24,12 @@ OtherTestFile
 213
 6
 /home
+7
+[^T].*
+0
+0
+
+
 
 
 

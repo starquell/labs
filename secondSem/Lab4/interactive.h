@@ -1,9 +1,12 @@
 #include <functional>
+#include <optional>
 #include <thread>
+#include <regex>
 #include <map>
 
 using std::cin;
 using std::cout;
+
 
 void msg () {
 
@@ -176,6 +179,47 @@ void interactive (Filesystem &fs, bool show) {
                     fs.findDirectory(path)->showAll();
 
                 cout << '\n';
+            }},
+
+            {7, [&fs, show] {
+
+                std::string name;
+
+                size_t minSize,
+                       maxSize;
+
+                cout << "Enter regular expression to filter by name or enter \"exit\" to skip\t";
+                cin >> name;
+
+                if (show) {
+                    cout << name << '\n';
+                    std::this_thread::sleep_for (0.6s);
+                }
+
+
+                std::optional <std::regex> optName ((name == "exit") ? std::nullopt : std::optional (name));
+
+                cout << "Set minimal size\t";
+                cin >> minSize;
+
+                if (show) {
+                    cout << minSize << '\n';
+                    std::this_thread::sleep_for (0.6s);
+                }
+
+                cout << "Set max size or 0 to skip\t";
+                cin >> maxSize;
+
+                if (show) {
+                    cout << maxSize << '\n';
+                    std::this_thread::sleep_for (0.6s);
+                }
+
+                std::optional <size_t> optMaxSize ((maxSize == 0) ? std::nullopt : std::optional (maxSize));
+
+                fs.filter ({optName, optMaxSize, minSize});
+
+                msg();
 
                 if (show)
                     exit (0);
@@ -188,13 +232,14 @@ void interactive (Filesystem &fs, bool show) {
             "    3. Get directory / file info.\n"
             "    4. Delete directory or file.\n"
             "    5. Get path by directory/file name.\n"
-            "    6. Show all in directory.\t";
+            "    6. Show all in directory.\n"
+            "    7. Filter directories and files\t";
 
     int choice;
 
     do
         std::cin >> choice;
-    while (choice < 1 || choice > 6);
+    while (choice < 1 || choice > 7);
 
     if (show) {
         cout << choice << '\n';
