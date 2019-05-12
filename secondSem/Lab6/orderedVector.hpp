@@ -8,7 +8,7 @@
 #include <algorithm>
 #include <type_traits>
 
-template <class T>
+template <class T, bool Random = false>
 class OrderedVector {
 
     std::vector <T> mVec;
@@ -18,38 +18,30 @@ public:
 
     using Iterator = typename std::vector <T>::iterator;
 
-    explicit OrderedVector (bool random = false, size_t n = 0)
+    explicit OrderedVector (size_t n = 0)
         : mVec ()
     {
 
-        if (random && std::is_same_v <T, Point>) {
+        if constexpr (Random && std::is_same_v <T, Point>) {
 
-            std::mt19937 gen;
-            std::uniform_real_distribution <double> distribution (0, 1000);
+            static std::mt19937 gen (std::random_device {} ());
+            static std::uniform_real_distribution <double> dis (0.0, 1000.0);
 
             mVec.reserve (n);
 
             for (size_t i = 0; i < n; ++i)
-                mVec.emplace_back (distribution (gen), distribution (gen), distribution (gen));
+                mVec.push_back ({dis(gen), dis(gen), dis(gen)});
 
-            std::stable_sort (mVec.begin(), mVec.end());
+
+            std::sort (mVec.begin(), mVec.end());
         }
     }
 
-    explicit OrderedVector (size_t count, const T &value = T())
-
-        : mVec (count, value)
-    {}
-
-    OrderedVector (std::vector <T> other) {
+    explicit OrderedVector (std::vector <T> other) {
 
         std::stable_sort (other.begin(), other.end());
         mVec = std::move(other);
     }
-
-    OrderedVector (const OrderedVector <T> &other) = default;
-
-    OrderedVector (OrderedVector <T> &&other) = default;
 
     void push (const T &data) {
 
@@ -59,11 +51,6 @@ public:
     void erase (Iterator it) {
 
         mVec.erase (it);
-    }
-
-    void erase (Iterator beg, Iterator end) {
-
-        mVec.erase (beg, end);
     }
 
     bool empty () {
@@ -81,6 +68,5 @@ public:
         return mVec.end();
     }
 };
-
 
 #endif //LAB6_ORDEREDVECTOR_HPP
