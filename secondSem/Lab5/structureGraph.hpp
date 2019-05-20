@@ -1,13 +1,17 @@
 #ifndef LAB5_STRUCTUREGRAPH_HPP
 #define LAB5_STRUCTUREGRAPH_HPP
 
+#include "graphAlgo.hpp"
+#include "matrixgraph.hpp"
 #include <vector>
+#include <utility>
 
 class MatrixGraph;
 
 class StructureGraph {
 
-    using list = std::vector <std::vector <unsigned>>;
+
+    using list = std::vector <std::vector <std::pair <unsigned, unsigned>>>;  // pair <Point, Cofficient>
 
     list mList;
     bool oriented;
@@ -15,7 +19,7 @@ class StructureGraph {
 
     template <class Stream>
     friend Stream& operator<< (Stream &stream, StructureGraph &graph);
-
+    friend std::vector <std::vector <unsigned>> algorithm::components (const StructureGraph &graph);
     friend class MatrixGraph;
 
 public:
@@ -27,6 +31,20 @@ public:
     void addEdge (size_t n, size_t m);
 };
 
+template <class Stream>
+Stream &operator<<(Stream &stream, StructureGraph &graph) {
+
+    for (size_t i = 0; i < graph.mList.size(); ++i) {
+
+        stream << i << " : ";
+
+        for (const auto &j : graph.mList[i])
+            stream << j << ' ';
+        stream << '\n';
+    }
+
+    return stream;
+}
 
 
 #endif //LAB5_STRUCTUREGRAPH_HPP

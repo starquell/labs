@@ -2,19 +2,7 @@
 #include "structureGraph.hpp"
 
 
-template <class Stream>
-Stream& operator<< (Stream &stream, MatrixGraph &graph) {
-
-    for (const auto &i : graph.mMatrix) {
-
-        for (const auto &j : i)
-            stream << j << ' ';
-        stream << '\n';
-    }
-    return stream;
-}
-
-void MatrixGraph::addEdge(int m, int n) {
+void MatrixGraph::addEdge (int m, int n) {
 
     mMatrix [m][n] = true;
     if (!oriented)
@@ -23,14 +11,22 @@ void MatrixGraph::addEdge(int m, int n) {
 
 MatrixGraph::MatrixGraph (const StructureGraph &graph)
 
-        : mMatrix (graph.mList.size(), std::vector <bool> (graph.mList.size(), false)),
+        : mMatrix (graph.mList.size(), std::vector <int> (graph.mList.size(), false)),
           oriented (graph.oriented)
 
 {
     auto size = graph.mList.size();
 
-  //  for (int i = 0; i < size; ++i)
+    for (int i = 0; i < size; ++i)
 
-    //    for (auto &j : i)
-      //      mMatrix[i][j] = true;
+        for (auto &j : graph.mList [i])
+             mMatrix[i][j] = true;
 }
+
+MatrixGraph::MatrixGraph (int n, bool isOriented)
+
+        : mMatrix (n, std::vector <int> (n)),
+          oriented (isOriented)
+{}
+
+
