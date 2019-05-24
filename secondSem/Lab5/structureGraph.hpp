@@ -2,7 +2,6 @@
 #define LAB5_STRUCTUREGRAPH_HPP
 
 #include "graphAlgo.hpp"
-#include "matrixgraph.hpp"
 #include <vector>
 #include <utility>
 
@@ -19,27 +18,29 @@ class StructureGraph {
 
     template <class Stream>
     friend Stream& operator<< (Stream &stream, StructureGraph &graph);
-    friend std::vector <std::vector <unsigned>> algorithm::components (const StructureGraph &graph);
+    friend class algorithm;
     friend class MatrixGraph;
 
 public:
 
-    explicit StructureGraph (size_t n, bool isOriented = false);
+    explicit StructureGraph (size_t n, bool isOriented = false, bool random = false);
 
     explicit StructureGraph (const MatrixGraph &graph);
 
-    void addEdge (size_t n, size_t m);
+    void addEdge (size_t n, size_t m, unsigned coeficient = 0);
 };
 
 template <class Stream>
-Stream &operator<<(Stream &stream, StructureGraph &graph) {
+Stream& operator<< (Stream &stream, StructureGraph &graph) {
+
+    stream << "{Neighbour, Coefficient}\n";
 
     for (size_t i = 0; i < graph.mList.size(); ++i) {
 
         stream << i << " : ";
 
         for (const auto &j : graph.mList[i])
-            stream << j << ' ';
+            stream << '{' << j.first << ", " << j.second << "}  ";
         stream << '\n';
     }
 

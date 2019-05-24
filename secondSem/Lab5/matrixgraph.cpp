@@ -1,17 +1,18 @@
 #include "matrixgraph.hpp"
 #include "structureGraph.hpp"
 
+#include <random>
 
-void MatrixGraph::addEdge (int m, int n) {
+void MatrixGraph::addEdge (int m, int n, unsigned coeficient) {
 
-    mMatrix [m][n] = true;
+    mMatrix [m][n] = coeficient;
     if (!oriented)
-        mMatrix [n][m] = true;
+        mMatrix [n][m] = coeficient;
 }
 
 MatrixGraph::MatrixGraph (const StructureGraph &graph)
 
-        : mMatrix (graph.mList.size(), std::vector <int> (graph.mList.size(), false)),
+        : mMatrix (graph.mList.size(), std::vector <int> (graph.mList.size(), 0)),
           oriented (graph.oriented)
 
 {
@@ -20,13 +21,30 @@ MatrixGraph::MatrixGraph (const StructureGraph &graph)
     for (int i = 0; i < size; ++i)
 
         for (auto &j : graph.mList [i])
-             mMatrix[i][j] = true;
+             mMatrix[i][j.first] = j.second;
 }
 
-MatrixGraph::MatrixGraph (int n, bool isOriented)
+MatrixGraph::MatrixGraph (int n, bool isOriented, bool random)
 
         : mMatrix (n, std::vector <int> (n)),
           oriented (isOriented)
-{}
+{
+
+    if (random) {
+
+        static std::mt19937 gen (std::random_device{}());
+        static std::uniform_int_distribution <int> dis (0, 3);
+
+        for (int i = 0; i < mMatrix.size(); ++i)
+            for (int j = 0; j < mMatrix[i].size(); ++j) {
+                if (oriented && mMatrix[j][i] == 0)
+                    mMatrix[i][j] = dis(gen);
+                else if (!oriented)
+                    mMatrix[i][j] = dis(gen);
+                if (i == j)
+                    mMatrix[i][j] = 0;
+            }
+    }
+}
 
 

@@ -2,9 +2,9 @@
 #define LAB5_MATRIXGRAPH_HPP
 
 
-#include "structureGraph.hpp"
 #include <vector>
 
+class StructureGraph;
 
 class MatrixGraph {
 
@@ -17,15 +17,16 @@ class MatrixGraph {
     template <class Stream>
     friend Stream& operator<< (Stream &stream, MatrixGraph &graph);
 
+    friend class algorithm;
     friend class StructureGraph;
 
 public:
 
-    explicit MatrixGraph (int n, bool isOriented = false);
+    explicit MatrixGraph (int n, bool isOriented = false, bool random = false);
 
     explicit MatrixGraph (const StructureGraph &graph);
 
-    void addEdge (int m, int n);
+    void addEdge (int m, int n, unsigned coeficient);
 };
 
 template <class Stream>

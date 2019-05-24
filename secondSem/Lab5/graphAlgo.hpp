@@ -1,48 +1,33 @@
 #ifndef ALGOT_HPP
 #define ALGOT_HPP
 
-#include "structureGraph.hpp"
-
 #include <vector>
 
 
+class StructureGraph;
+class MatrixGraph;
 
 class algorithm {
 
 
-    static void dfs (int v, std::vector<bool> &used,  std::vector<int> &comp) {
-
-        used [v] = true;
-        comp.push_back (v);
-
-        for (auto &i : mStructure [v]) {
-            int to = i.first;
-            if (!used[to])
-                dfs (to, used, comp);
-        }
-    }
+    static void dfsComponents (int v, std::vector<bool> &used,  std::vector<unsigned> &comp, const StructureGraph &graph);
 
 public:
 
-    static std::vector <std::vector <unsigned>> components (const StructureGraph &graph) {
+    static std::vector <std::vector <unsigned>> components (const StructureGraph &graph);
 
-        const auto size = graph.mList.size();
+    static std::vector <std::vector <unsigned>> components (const MatrixGraph &graph);
 
-        std::vector <bool> used(size, false);
-        std::vector <unsigned> comp;
-        std::vector <std::vector <unsigned>> components;
+    template <class Pred>
+    static void dfs (MatrixGraph &graph, unsigned from, Pred predicate);
 
-        for (int i = 0; i < size; ++i)
-
-            if (!used[i]) {
-
-                comp.clear();
-                dfs (i, used, comp);
-                components.push_back (comp);
-            }
-    }
+    template <class Pred>
+    static void dfs (StructureGraph &graph, unsigned from, Pred predicate);
 
 };
+
+
+#include "GraphAlgo.cpp"
 
 #endif
 

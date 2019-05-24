@@ -1,10 +1,12 @@
+#include "graphAlgo.hpp"
 #include "structureGraph.hpp"
 #include "matrixgraph.hpp"
 
+#include <random>
 
-StructureGraph::StructureGraph (size_t n, bool isOriented)
+StructureGraph::StructureGraph (size_t n, bool isOriented, bool random)
 
-        : mList (n),
+        : mList (StructureGraph (MatrixGraph {int (n), isOriented, random}).mList),
           oriented (isOriented)
 {}
 
@@ -20,15 +22,15 @@ StructureGraph::StructureGraph (const MatrixGraph &graph)
 
         for (size_t j = 0; j < size; ++j)
 
-            if (graph.mMatrix[i][j])
-                mList[i].push_back(j, i);
+            if (graph.mMatrix[i][j] != 0)
+                mList[i].emplace_back (j, graph.mMatrix[i][j]);
 }
 
 
-void StructureGraph::addEdge(size_t n, size_t m) {
+void StructureGraph::addEdge(size_t n, size_t m, unsigned coeficient) {
 
-    mList[n].push_back(m);
+    mList[n].emplace_back(m, coeficient);
 
     if (!oriented)
-        mList[m].push_back(n);
+        mList[m].emplace_back(n, coeficient);
 }
