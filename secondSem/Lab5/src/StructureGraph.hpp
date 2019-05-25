@@ -1,7 +1,7 @@
 #ifndef LAB5_STRUCTUREGRAPH_HPP
 #define LAB5_STRUCTUREGRAPH_HPP
 
-#include "graphAlgo.hpp"
+#include "GraphAlgo.hpp"
 #include <vector>
 #include <utility>
 
@@ -20,6 +20,7 @@ class StructureGraph {
     friend Stream& operator<< (Stream &stream, StructureGraph &graph);
     friend class algorithm;
     friend class MatrixGraph;
+
 
 public:
 

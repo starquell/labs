@@ -1,12 +1,12 @@
-#include "graphAlgo.hpp"
-#include "structureGraph.hpp"
-#include "matrixgraph.hpp"
+#include "GraphAlgo.hpp"
+#include "StructureGraph.hpp"
+#include "Matrixgraph.hpp"
 
 #include <random>
 
 StructureGraph::StructureGraph (size_t n, bool isOriented, bool random)
 
-        : mList (StructureGraph (MatrixGraph {int (n), isOriented, random}).mList),
+        : mList (random ? StructureGraph (MatrixGraph {int (n), isOriented, random}).mList : list (n)),
           oriented (isOriented)
 {}
 
