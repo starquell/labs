@@ -1,13 +1,13 @@
 #ifndef LAB6_ORDEREDLIST_HPP
 #define LAB6_ORDEREDLIST_HPP
 
-#include "point.hpp"
+#include "Point.hpp"
 
 #include <list>
 #include <random>
 #include <type_traits>
 
-template <class T, bool Random = false>
+template <class T>
 class OrderedList {
 
     std::list <T> mList;
@@ -20,13 +20,10 @@ public:
             : mList ()
     {
 
-        if constexpr (Random && std::is_same_v <T, Point>) {
-
-            static std::mt19937 gen (std::random_device {} ());
-            static std::uniform_real_distribution <double> dis (0.0, 1000.0);
+        if constexpr (std::is_same_v <T, Point>) {
 
             for (size_t i = 0; i < n; ++i)
-                mList.push_back ({dis(gen), dis(gen), dis(gen)});
+                mList.push_back (Point {});
 
             mList.sort();
         }

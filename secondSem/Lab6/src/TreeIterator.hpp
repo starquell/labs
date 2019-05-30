@@ -8,10 +8,12 @@
 template <class Node>
 class Iterator {
 
+protected:
+
     size_t cur;
     std::vector <Node*> nodes;
 
-    void fillStack (Node *node)  {
+    virtual void fillStack (Node *node)  {
 
         if (!node)
             return;
@@ -51,6 +53,17 @@ public:
         cur += i;
         return *this;
     }
+
+    size_t operator- (const Iterator& other) {
+
+        return cur - other.cur;
+    }
+
+    size_t operator+ (const Iterator& other) {
+
+        return cur + other.cur > nodes.size() ? 0 : cur + other.cur;
+    }
+
 
     Iterator& operator- (int i) {
 

@@ -1,9 +1,10 @@
 #ifndef LAB6_BST_HPP
 #define LAB6_BST_HPP
 
-#include "treeIterator.hpp"
+#include "TreeIterator.hpp"
 
 #include <stack>
+#include <random>
 
 template <class T>
 class BinaryTree {
@@ -79,18 +80,20 @@ class BinaryTree {
         }
     }
 
-public:
-
-
 
 public:
 
-    BinaryTree () = default;
+    explicit BinaryTree (size_t n = 0)
+            : root (nullptr)
 
-    explicit BinaryTree (const T &data)
+    {
+        if (std::is_same_v <T, Point>)
 
-            : root (new Node {data})
-    {}
+            for (size_t i = 0; i < n; ++i) {
+
+                push (Point {});
+            }
+    }
 
     bool empty() {
 

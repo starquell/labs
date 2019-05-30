@@ -33,29 +33,6 @@ struct AVLNode {
     }
 
 
-    AVLNode* leftRotate () {
-
-        auto temp = right;
-        right = right->left;
-        temp->left = this;
-
-        this->fixHeight();
-        temp->fixHeight();
-
-        return temp;
-    }
-
-    AVLNode* rightRotate () {
-
-        auto temp = left;
-        left = left->right;
-        temp->right = this;
-
-        this->fixHeight();
-        temp->fixHeight();
-
-        return temp;
-    }
 };
 
 #endif //LAB6_AVLNODE_HPP

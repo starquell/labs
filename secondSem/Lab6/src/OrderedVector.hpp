@@ -1,18 +1,17 @@
 #ifndef LAB6_ORDEREDVECTOR_HPP
 #define LAB6_ORDEREDVECTOR_HPP
 
-#include "point.hpp"
+#include "Point.hpp"
 
 #include <vector>
 #include <random>
 #include <algorithm>
 #include <type_traits>
 
-template <class T, bool Random = false>
+template <class T>
 class OrderedVector {
 
     std::vector <T> mVec;
-
 
 public:
 
@@ -22,15 +21,12 @@ public:
         : mVec ()
     {
 
-        if constexpr (Random && std::is_same_v <T, Point>) {
-
-            static std::mt19937 gen (std::random_device {} ());
-            static std::uniform_real_distribution <double> dis (0.0, 1000.0);
+        if constexpr (std::is_same_v <T, Point>) {
 
             mVec.reserve (n);
 
             for (size_t i = 0; i < n; ++i)
-                mVec.push_back ({dis(gen), dis(gen), dis(gen)});
+                mVec.push_back (Point {});
 
 
             std::sort (mVec.begin(), mVec.end());
@@ -66,6 +62,11 @@ public:
     Iterator end() {
 
         return mVec.end();
+    }
+
+    const T& operator[] (size_t n) {
+
+        return mVec [n];
     }
 };
 
