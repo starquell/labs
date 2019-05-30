@@ -138,6 +138,7 @@ class TwoThreeNode {
     void updateParentSmallest (const Point& data) {
 
         switch (sibNumber()) {
+
             case 0:
                 if (parent->parent)
                     parent->updateParentSmallest(data);
@@ -265,7 +266,7 @@ public:
         return cur < other.cur;
     }
 
-    bool operator!= (const TwoThreeIterator &other) {
+    bool operator!=(const TwoThreeIterator &other) {
         return cur != other.cur;
     }
 };
@@ -276,6 +277,18 @@ class TwoThreeTree {
     TwoThreeNode *root;
 
 
+    static void deleter (TwoThreeNode *root) {
+
+        if (!root)
+            return;
+
+        deleter (root->child[0]);
+        deleter (root->child[1]);
+        deleter (root->child[2]);
+
+        delete root;
+    }
+
     TwoThreeNode* findSpot (TwoThreeNode *node, const Point& data) const {
 
         if (!node)
@@ -285,9 +298,9 @@ class TwoThreeTree {
 
             if (node->key[0] == data || node->key[1] == data)
                 return nullptr;
-            if (node->key[0] == Point {-1, -1, -1} || data < node->key[0])
+            if (node->key[0] == Point{-1, -1, -1} || data < node->key[0])
                 node = node->child[0];
-            else if (node->key[1] == Point {-1, -1, -1} || data < node->key[1])
+            else if (node->key[1] == Point{-1, -1, -1} || data < node->key[1])
                 node = node->child[1];
             else
                 node = node->child[2];
@@ -320,7 +333,7 @@ public:
             push(Point{});
     }
 
-    void push(const Point &data) {
+    void push (const Point &data) {
 
         auto newNode = new TwoThreeNode {data};
         TwoThreeNode *spot = root->child[0];
@@ -339,8 +352,40 @@ public:
         }
     }
 
+    TwoThreeNode* find (const Point& value) const {
 
-    bool empty() {
+        auto temp = root->child[0];
+
+        while (temp && !temp->isLeaf()) {
+
+            if (!temp->child[2])
+                if (temp->key[0] < value)
+                    temp = temp->child[1];
+                else
+                    temp = temp->child[0];
+
+            else if (temp->key[1] < value)
+                temp = temp->child[2];
+            else if  (temp->key[0] < value)
+                temp = temp->child[1];
+            else
+                temp = temp->child[0];
+        }
+
+        return temp;
+    }
+
+
+    void erase (TwoThreeIterator it) {
+
+        Point value = *it;
+        auto toErase = find (value);
+
+            // doesn't work
+
+    }
+
+    bool empty () const {
 
         return !root;
     }
@@ -358,6 +403,10 @@ public:
     const Point& operator[] (size_t n) {
 
         return *(begin() + n);
+    }
+
+    ~TwoThreeTree() {
+        deleter (root);
     }
 };
 

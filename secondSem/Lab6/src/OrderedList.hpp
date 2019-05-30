@@ -6,6 +6,7 @@
 #include <list>
 #include <random>
 #include <type_traits>
+#include <algorithm>
 
 template <class T>
 class OrderedList {
@@ -38,6 +39,11 @@ public:
     void push (const T &data) {
 
         mList.insert (std::lower_bound (mList.begin(), mList.end(), data), data);
+    }
+
+    bool find (const T& value)  {
+
+        return std::binary_search (begin(), end(), value);
     }
 
     void erase (Iterator it) {

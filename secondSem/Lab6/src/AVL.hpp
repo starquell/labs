@@ -13,6 +13,21 @@ class AVLTree {
 
     Node *root;
 
+    static bool findHelper (Node* root, const T& value) {
+
+        if (!root)
+            return false;
+
+        if (root->data > value)
+            return findHelper (root->left, value);
+
+        else if (root->data < value)
+            return findHelper (root->right, value);
+
+        else
+            return true;
+    }
+
     static void deleter (Node *root) {
 
         if (!root)
@@ -78,8 +93,6 @@ class AVLTree {
             return node;
 
         if (data == node->data) {
-
-            path.push_back (node);
 
             if (node->left && node->right) {
 
@@ -179,7 +192,15 @@ public:
         auto data = *it;
         std::vector <Node*> path;
         root = eraseHelper (root, data, path);
-        balance (path);
+
+        std::reverse (path.begin(), path.end());
+        for (auto i : path)
+            balance (i);
+    }
+
+    bool find (const T& value) const {
+
+        return findHelper (root, value);
     }
 
     ~AVLTree() {

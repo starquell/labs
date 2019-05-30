@@ -12,6 +12,21 @@ class BinaryTree {
     using Node = BinaryNode <T>;
     Node *root;
 
+    static bool findHelper (Node* root, const T& value) {
+
+        if (!root)
+            return false;
+
+        if (root->data > value)
+            return findHelper (root->left, value);
+
+        else if (root->data < value)
+            return findHelper (root->right, value);
+
+        else
+            return true;
+    }
+
     static Node *pushToRoot (Node *root, const T &data) {
 
         if (!root)
@@ -126,6 +141,10 @@ public:
         return *(begin() + n);
     }
 
+    bool find (const T& value) const {
+
+        return findHelper (root, value);
+    }
 
     ~BinaryTree () {
 

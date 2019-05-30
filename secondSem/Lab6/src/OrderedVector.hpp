@@ -44,6 +44,11 @@ public:
         mVec.insert (std::lower_bound (mVec.begin(), mVec.end(), data), data);
     }
 
+    bool find (const T& value) const {
+
+        return std::binary_search (mVec.begin(), mVec.end(), value);
+    }
+
     void erase (Iterator it) {
 
         mVec.erase (it);
