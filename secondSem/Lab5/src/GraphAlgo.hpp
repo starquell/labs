@@ -17,12 +17,12 @@ class algorithm {
 
 public:
 
-    static std::vector <std::vector <unsigned>> components (const StructureGraph &graph);
+    static std::vector <std::vector <unsigned>> components (const StructureGraph &graph);   //task 6
 
     static std::vector <std::vector <unsigned>> components (const MatrixGraph &graph);
 
     template <class Pred>
-    static void dfs (const MatrixGraph &graph, unsigned from, Pred predicate);
+    static void dfs (const MatrixGraph &graph, unsigned from, Pred predicate);  // task 12
 
     template <class Pred>
     static void dfs (const StructureGraph &graph, unsigned from, Pred predicate);
@@ -33,18 +33,18 @@ public:
     template <class Pred>
     static void dfsByCoefficients (const MatrixGraph &graph, unsigned from, Pred predicate);
 
-    static std::vector <unsigned> distance (const StructureGraph &graph, unsigned from, unsigned to);
+    static std::vector <unsigned> distance (const StructureGraph &graph, unsigned from, unsigned to);  // task 14
     static std::vector <unsigned> distance (const MatrixGraph &graph, unsigned from, unsigned to);
 
     static bool cycled (const StructureGraph &graph);
 
-    static std::vector <unsigned> topologicalSort (const StructureGraph &graph);
+    static std::vector <unsigned> topologicalSort (const StructureGraph &graph);  // task 18
     static std::vector <unsigned> topologicalSort (const MatrixGraph &graph);
 
-    static StructureGraph spanningTree (const StructureGraph &graph);
+    static StructureGraph spanningTree (const StructureGraph &graph);       // task 19
     static MatrixGraph spanningTree (const MatrixGraph &graph);
 
-    static MatrixGraph minSpanningTree (const MatrixGraph &graph);
+    static MatrixGraph minSpanningTree (const MatrixGraph &graph);      // task 22
     static StructureGraph minSpanningTree (const StructureGraph &graph);
 
     static unsigned weight (const StructureGraph &graph);
