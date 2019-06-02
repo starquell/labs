@@ -7,32 +7,37 @@
 #include <functional>
 #include <initializer_list>
 #include <any>
+#include <memory>
+#include <boost/callable_traits.hpp>
+#include <type_traits>
 
 
 template <class... Ts>
 class Helper {
 
-    static constexpr auto argNum = sizeof...(Ts);
-    static_assert (argNum > 0, "Template should have one parameter at least.");
 
 public:
 
+    template <class... T, class... Args>
+    Helper <T...> (std::function <void (Ts...)> func)
 
-    Helper (std::initializer_list <std::string> args) {
+            : mFunc (std::move (func))
+    {}
 
-        std::copy (args.begin(), args.end(), mNames.begin());
-    }
 
-    template <class Func>
-    auto set (Func&& func) {
+    auto operator [] (std::string_view arg) {
 
-        mFunc = func;
+        mNames.push_back (arg.data ());
         return *this;
     }
 
     void operator () () {
 
-        read <0> ();
+        if (mNames.size() != sizeof... (Ts))
+            throw std::logic_error {"idy v pizdu"};
+
+             read <0> ();
+
         std::apply (mFunc, mValues);
     }
 
@@ -42,19 +47,23 @@ private:
     template <int N>
     void read() {
 
-        std::cout << std::get<N> (mNames) << ": ";
-        std::cin >> std::get<N> (mValues);
+        std::cout << mNames [N] << ": ";
+        std::cin >> std::get <N> (mValues);
 
-        if constexpr (N + 1 < argNum)
+        if constexpr (N + 1 < sizeof... (Ts))
             read <N + 1> ();
     }
 
 private:
 
-    std::array <std::string, argNum> mNames;
+    std::vector <std::string> mNames;
     std::tuple <Ts...> mValues;
     std::function <void (Ts...)> mFunc;
 };
+
+template <class... Args>
+Helper (std::function <void (Args...)>) -> Helper <Args...>;
+
 
 
 class HelperContainer {
@@ -69,14 +78,14 @@ public:
     template <class... Ts>
     HelperContainer (Helper <Ts...> && helper) {
 
-        mHelpers.emplace_back (std::move (helper));
+        mHelpers.push_back (std::any (std::move (helper)));
     }
 
 
     template <class... Ts>
     void push (Helper <Ts...> && helper) {
 
-        mHelpers.emplace_back (std::any (std::move (helper)));
+        mHelpers.push_back (std::any (std::move (helper)));
     }
 
     template <class... Ts>
