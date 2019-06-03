@@ -1,25 +1,24 @@
 #ifndef LAB7_HELPER_HPP
 #define LAB7_HELPER_HPP
 
-#include <array>
 #include <tuple>
 #include <iostream>
 #include <functional>
 #include <initializer_list>
-#include <any>
-#include <memory>
 #include <boost/callable_traits.hpp>
 #include <type_traits>
+#include <any>
+#include <memory>
+
+
 
 
 template <class... Ts>
 class Helper {
 
-
 public:
 
-    template <class... T, class... Args>
-    Helper <T...> (std::function <void (Ts...)> func)
+    Helper (std::function <void (Ts...)> func)
 
             : mFunc (std::move (func))
     {}
@@ -34,7 +33,7 @@ public:
     void operator () () {
 
         if (mNames.size() != sizeof... (Ts))
-            throw std::logic_error {"idy v pizdu"};
+            throw std::logic_error {"--------"};
 
              read <0> ();
 
@@ -55,44 +54,23 @@ private:
     }
 
 private:
-
-    std::vector <std::string> mNames;
     std::tuple <Ts...> mValues;
     std::function <void (Ts...)> mFunc;
+    std::vector <std::string> mNames;
+
 };
 
-template <class... Args>
-Helper (std::function <void (Args...)>) -> Helper <Args...>;
 
 
 
-class HelperContainer {
 
-private:
+class Helpers {
 
-    std::vector <std::any> mHelpers;
 
 
 public:
 
-    template <class... Ts>
-    HelperContainer (Helper <Ts...> && helper) {
 
-        mHelpers.push_back (std::any (std::move (helper)));
-    }
-
-
-    template <class... Ts>
-    void push (Helper <Ts...> && helper) {
-
-        mHelpers.push_back (std::any (std::move (helper)));
-    }
-
-    template <class... Ts>
-    auto get (unsigned n) {
-
-        return std::any_cast <Helper <Ts...>> (mHelpers[n]) ();
-    }
 
 
 };
