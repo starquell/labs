@@ -1,17 +1,16 @@
 #ifndef LAB7_HELPER_HPP
 #define LAB7_HELPER_HPP
 
-#include "Method.hpp"
 
 #include <tuple>
-#include <iostream>
-#include <initializer_list>
-#include <stdexcept>
 #include <vector>
 #include <string>
+#include <iostream>
+#include <stdexcept>
+#include <functional>
 #include <type_traits>
-#include <boost/callable_traits.hpp>
-
+#include <initializer_list>
+#include "boost_callable_traits/include/boost/callable_traits/args.hpp"
 
 class Helper {
 
@@ -48,6 +47,7 @@ public:
 
                 ArgsTuple arguments{};
                 read <0> (arguments);
+
                 std::apply (std::forward <Func> (func), arguments);
             }
 

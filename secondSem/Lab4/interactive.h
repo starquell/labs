@@ -4,6 +4,8 @@
 #include <regex>
 #include <map>
 
+#include "Helper.hpp"
+
 using std::cin;
 using std::cout;
 
@@ -17,6 +19,86 @@ void msg () {
 }
 
 void interactive (Filesystem &fs, bool show) {
+
+//    static auto helper = Helper <std::string, std::string> {"Enter path to parent directory : ",
+//                                                    "Enter name :"}.set (
+//              [&fs] (const std::string &name, const std::string &path) {
+//
+//                  if (fs.findDirectory (path))
+//                      fs.createDir (path, name);
+//
+//                  else {
+//                      cout << "No such directory!\n";
+//                      return;
+//               }}
+//            )
+//            | Helper <std::string, std::string, int> { "Enter path to parent directory : ",  "Enter name of file : ",
+//                                                     "Set file size in bytes : "}.set (
+//               [&fs] (const std::string &name, const std::string &path, int size) {
+//
+//                   if (fs.findDirectory (path))
+//                       fs.createFile (path, name, size);
+//                   else {
+//                       cout << "No such directory!\n";
+//                       return;
+//                   }
+//               })
+//
+//            | Helper <std::string> {"Enter path to directory/file : "}.set (
+//
+//                       [&fs] (const std::string &path){
+//
+//                           if (fs.findDirectory (path))
+//                               fs.findDirectory (path)->info();
+//
+//                           else if (fs.findFile (path))
+//                               fs.findFile (path)->info();
+//
+//                           else {
+//                               cout << "No such file or directory!\n\n";
+//                               return;
+//                           }
+//                       })
+//
+//             | Helper <std::string> {"Enter path to directory/file : "}.set (
+//
+//                       [&fs] (const std::string &path) {
+//
+//                           if (fs.findDirectory (path))
+//                               fs.deleteDir (path);
+//
+//                           else if (fs.findFile (path))
+//                               fs.deleteFile (path);
+//
+//                           else {
+//                               cout << "No such file or directory!\n\n";
+//                               return;
+//                           }
+//                       })
+//
+//              | Helper <std::string> {"Enter name of directory/file : "}.set(
+//
+//                      [&fs] (const std::string &name) {
+//
+//                          auto found = fs.findByName (name);
+//
+//                          cout << "Found : \n";
+//
+//                          for (auto &i : found)
+//                              cout << '\t' << i << '\n';
+//                      })
+//
+//              | Helper <std::string> {"Enter path to directory : "}.set (
+//
+//                      [&fs] (const std::string &path) {
+//
+//                          if (fs.findDirectory(path))
+//                              fs.findDirectory(path)->showAll();
+//
+//                          cout << '\n';
+//                      });
+
+
 
     static std::map <int, std::function <void ()>> funcs {
 
@@ -248,13 +330,14 @@ void interactive (Filesystem &fs, bool show) {
 
     cout << '\n';
     funcs [choice] ();
+
 }
 
 void binaryInteractive (BinaryTree <int> &tree) {
 
     static std::map <int, std::function <void ()>> funcs {
 
-            {1, [&tree] {
+            {1, [ &tree] {
 
                 int number;
                 cout << "Integer to add : ";

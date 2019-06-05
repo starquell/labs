@@ -3,62 +3,9 @@
 
 
 #include "Helper.hpp"
-#include "Method.hpp"
 
 
-//class Helpers {
-//
-//private:
-//
-//    std::vector <std::function <void ()>> mFuncs;
-//    std::vector <Helper> mHelpers;
-//    int counter = 0;
-//
-//public:
-//
-//
-//    Helpers (Helper&& helper) {
-//
-//        mHelpers.push_back (std::forward <Helper> (helper));
-//    }
-//
-//
-//    void push (Helper&& helper) {
-//
-//        mHelpers.push_back (std::forward <Helper> (helper));
-//    }
-//
-//    template <class Func>
-//    void bind (Func&& func) {
-//
-//        mFuncs.push_back ([&, counter = counter] {mHelpers [counter] (func);});
-//        ++counter;
-//    }
-//
-//    template <class FuncHead, class... Funcs>
-//    void bind (FuncHead &&funcHead, Funcs &&... funcs) {
-//
-//        mFuncs.push_back ([&, counter = counter] {mHelpers [counter] (funcHead);});
-//        ++counter;
-//        bind (std::forward <Funcs> (funcs)...);
-//    }
-//
-//    template <class HeadMethod, class HeadObj, class... MethodType,  class...ObjType>
-//    void bind (Method <HeadMethod, HeadObj>&& headMethod, Method <MethodType, ObjType>&&... method) {
-//
-//        auto notMember = std::mem_fn (&headMethod.method());
-//        auto binding = std::bind (notMember, &headMethod.object(), )
-//    }
-//
-//
-//
-//    void operator [] (unsigned n) {
-//
-//        mFuncs [n] ();
-//    }
-//};
-
-class Helpers {
+class HelperContainer {
 
 private:
 
@@ -67,33 +14,45 @@ private:
 
 public:
 
-
-    Helpers (Helper&& helper) {
+    HelperContainer (Helper&& helper) {
 
         mHelpers.push_back (std::forward <Helper> (helper));
     }
 
+    HelperContainer (std::initializer_list <Helper> list)
+            : mHelpers (list)
+    {}
 
     void push (Helper&& helper) {
 
         mHelpers.push_back (std::forward <Helper> (helper));
     }
 
+    template <class... Funcs>
+    void bind (Funcs&&... funcs) {
+
+        if (sizeof... (funcs) > mHelpers.size())
+            throw std::logic_error {"Number of callable functions can't be bigger than number of helpers."};
+
+        bindImpl (std::forward <Funcs> (funcs)...);
+    }
+
+private:
+
     template <class Func>
-    void bind (Func&& func) {
+    void bindImpl (Func&& func) {
 
         mHelpers [counter++].bind (std::forward <Func> (func));
     }
 
     template <class FuncHead, class... Funcs>
-    void bind (FuncHead &&funcHead, Funcs &&... funcs) {
+    void bindImpl (FuncHead &&funcHead, Funcs &&... funcs) {
 
-        if (sizeof... (funcs) + 1 > mHelpers.size())
-            throw ()
         mHelpers [counter++].bind (std::forward <FuncHead> (funcHead));
-        bind (std::forward <Funcs> (funcs)...);
+        bindImpl (std::forward <Funcs> (funcs)...);
     }
 
+public:
 
     void operator [] (unsigned n) {
 
@@ -102,23 +61,32 @@ public:
 
         mHelpers [n] ();
     }
+
+    void launchAll () {
+
+        for (auto &i : mHelpers)
+            i();
+    }
+
 };
 
 
-Helpers operator | (Helper&& lhs, Helper&& rhs) {
+HelperContainer operator | (Helper&& lhs, Helper&& rhs) {
 
-    Helpers container (std::move (lhs));
+    HelperContainer container (std::move (lhs));
     container.push (std::move (rhs));
 
     return container;
 }
 
 
-Helpers operator | (Helpers && container, Helper&& helper) {
+HelperContainer operator | (HelperContainer && container, Helper&& helper) {
 
     container.push (std::move (helper));
     return container;
 }
+
+using Helpers = HelperContainer;
 
 
 #endif //LAB7_HELPERCONTAINER_HPP
