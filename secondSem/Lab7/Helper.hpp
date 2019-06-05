@@ -1,117 +1,88 @@
 #ifndef LAB7_HELPER_HPP
 #define LAB7_HELPER_HPP
 
-#include <array>
+#include "Method.hpp"
+
 #include <tuple>
 #include <iostream>
-#include <functional>
 #include <initializer_list>
-#include <any>
-#include <memory>
-#include <boost/callable_traits.hpp>
+#include <stdexcept>
+#include <vector>
+#include <string>
 #include <type_traits>
+#include <boost/callable_traits.hpp>
 
 
-template <class... Ts>
 class Helper {
-
 
 public:
 
-    template <class... T, class... Args>
-    Helper <T...> (std::function <void (Ts...)> func)
+    Helper (std::initializer_list <std::string> commands)
 
-            : mFunc (std::move (func))
+            : mNames (commands)
     {}
 
+    template <typename T>
+    struct GetArity : GetArity <decltype (&T::operator())> {};
 
-    auto operator [] (std::string_view arg) {
+    template <typename R, typename... Args>
+    struct GetArity <R(*)(Args...)> : std::integral_constant <unsigned, sizeof...(Args)> {};
 
-        mNames.push_back (arg.data ());
-        return *this;
+    template <typename R, typename C, typename... Args>
+    struct GetArity <R(C::*)(Args...)> : std::integral_constant <unsigned, sizeof...(Args)> {};
+
+    template <typename R, typename C, typename... Args>
+    struct GetArity <R(C::*)(Args...) const> : std::integral_constant <unsigned, sizeof...(Args)> {};
+
+    template <class Func>
+    void bind (Func &&func) {
+
+        mFunc = [&] {
+
+            if constexpr (GetArity <std::decay_t <Func>> {} != 0) {
+
+                using ArgsTuple = boost::callable_traits::args_t <Func>;
+
+                if (std::tuple_size <ArgsTuple>::value != mNames.size())
+                    throw std::logic_error {"Number of function arguments must be equal to asked arguments"};
+
+                ArgsTuple arguments{};
+                read <0> (arguments);
+                std::apply (std::forward <Func> (func), arguments);
+            }
+
+            else
+                func ();
+        };
     }
+
 
     void operator () () {
 
-        if (mNames.size() != sizeof... (Ts))
-            throw std::logic_error {"idy v pizdu"};
-
-             read <0> ();
-
-        std::apply (mFunc, mValues);
+        mFunc ();
     }
 
 
 private:
 
-    template <int N>
-    void read() {
+    template <int N, class Tuple>
+    void read (Tuple &tuple) {
+
+        auto size = mNames.size();
 
         std::cout << mNames [N] << ": ";
-        std::cin >> std::get <N> (mValues);
+        std::cin >> std::get <N> (tuple);
 
-        if constexpr (N + 1 < sizeof... (Ts))
-            read <N + 1> ();
+        if constexpr (N + 1 < std::tuple_size <Tuple>::value)
+            read <N + 1> (tuple);
     }
+
 
 private:
 
+    std::function <void ()> mFunc;
     std::vector <std::string> mNames;
-    std::tuple <Ts...> mValues;
-    std::function <void (Ts...)> mFunc;
 };
-
-template <class... Args>
-Helper (std::function <void (Args...)>) -> Helper <Args...>;
-
-
-
-class HelperContainer {
-
-private:
-
-    std::vector <std::any> mHelpers;
-
-
-public:
-
-    template <class... Ts>
-    HelperContainer (Helper <Ts...> && helper) {
-
-        mHelpers.push_back (std::any (std::move (helper)));
-    }
-
-
-    template <class... Ts>
-    void push (Helper <Ts...> && helper) {
-
-        mHelpers.push_back (std::any (std::move (helper)));
-    }
-
-    template <class... Ts>
-    auto get (unsigned n) {
-
-        return std::any_cast <Helper <Ts...>> (mHelpers[n]) ();
-    }
-
-
-};
-
-template <class... lhsTs, class... rhsTs>
-HelperContainer operator | (Helper <lhsTs...> && lhs, Helper <rhsTs...> && rhs) {
-
-    HelperContainer container (std::move (lhs));
-    container.push (std::move (rhs));
-
-    return container;
-}
-
-template <class... Ts>
-HelperContainer operator | (HelperContainer&& container, Helper <Ts...> && helper) {
-
-    container.push (std::move (helper));
-    return container;
-}
 
 
 
