@@ -15,7 +15,7 @@ int main (int argc, char** argv) {
 
     helpers.bind (func, [] (std::string x, std::string y) { std::cout << "Your street : " << x; },
 
-                 [] {std::cout << "YEY";});
+                 [] {std::cout << "std::cout";});
 
 
    helpers.launchAll();
