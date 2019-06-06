@@ -18,6 +18,7 @@ void msg () {
 
 void interactive (Filesystem &fs, bool show) {
 
+
     static std::map <int, std::function <void ()>> funcs {
 
             {1, [&fs, show] {
@@ -248,13 +249,14 @@ void interactive (Filesystem &fs, bool show) {
 
     cout << '\n';
     funcs [choice] ();
+
 }
 
 void binaryInteractive (BinaryTree <int> &tree) {
 
     static std::map <int, std::function <void ()>> funcs {
 
-            {1, [&tree] {
+            {1, [ &tree] {
 
                 int number;
                 cout << "Integer to add : ";
