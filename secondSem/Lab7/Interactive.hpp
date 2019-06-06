@@ -4,4 +4,4 @@
 #include "src/Helper.hpp"
 #include "src/HelperContainer.hpp"
 
-#endif //LAB7_INTERACTIVE_HPP
+#endif

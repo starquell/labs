@@ -1,7 +1,6 @@
 #ifndef LAB7_HELPERCONTAINER_HPP
 #define LAB7_HELPERCONTAINER_HPP
 
-
 #include "Helper.hpp"
 
 
