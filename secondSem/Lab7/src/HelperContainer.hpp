@@ -39,6 +39,7 @@ public:
 
 private:
 
+
     template <class Func>
     void bindImpl (Func&& func) {
 
@@ -70,23 +71,23 @@ public:
 
 };
 
+using Helpers = HelperContainer;
+
 
 HelperContainer operator | (Helper&& lhs, Helper&& rhs) {
 
-    HelperContainer container (std::move (lhs));
-    container.push (std::move (rhs));
+    HelperContainer container (std::forward <Helper> (lhs));
+    container.push (std::forward <Helper> (rhs));
 
     return container;
 }
-
 
 HelperContainer operator | (HelperContainer && container, Helper&& helper) {
 
-    container.push (std::move (helper));
+    container.push (std::forward <Helper> (helper));
     return container;
 }
 
-using Helpers = HelperContainer;
 
 
 #endif //LAB7_HELPERCONTAINER_HPP
