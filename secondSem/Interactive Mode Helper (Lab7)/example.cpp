@@ -2,6 +2,16 @@
 
 #include <iostream>
 
+class Example {
+
+	int data;
+
+public:
+
+	Example (int _data) : data (_data) {}
+
+
+};
 int main (int argc, char** argv) {
 
 
