@@ -1,6 +1,7 @@
-### Interactive Mode Creator 
+###Interactive Mode Creator 
+______
 
-Class Helper implements CLI for any function :
+Class Helper implements Interactive mode in command line for any functions except generic lambdas :
 
 ```C++
 #include "Interactive.hpp"
@@ -9,25 +10,33 @@ Helper example {"Name", "Size"};
 
 example.bind ([&fs] (std::string name, size_t size) mutable {
         fs.createFile (name, size) 
+        std::cout << "File created succesfully!\n";
         };
-        
-example ();
-```
+```  
+or
 
-   or
-   
 ```C++
 void createFile (std::string name, size_t size) {
-        implementation...
+
+        ...implementation...
+        std::cout << "File created succesfully!\n";
         }
         
 example.bind (createFile);
-
-example ();
 ```
 
-For collecting a lot of functions use Helpers or HelperContainer :
+To start interacting use operator ():  `example ();`
 
+Output:
+
+```C++
+Name : user input
+Size : user input
+
+File created succesfully!
+```
+
+For collecting a lot of functions use special container for Helpers:
 ```C++
 Helpers example = Helper {"Name", "Size"}
                 | Helper {"Parent dir", "Name of new file"}
@@ -47,4 +56,3 @@ Helpers example = {Helper {"Name", "Size"},
                    Helper {"Parent dir", "Name of new file"},
                    Helper {"File to rename", "New name"}}
 ```                   
-
