@@ -3,7 +3,7 @@
 Class Helper implements CLI for any function :
 
 ```C++
-#include <Interactive.hpp>
+#include "Interactive.hpp"
 
 Helper example {"Name", "Size"};
 
@@ -33,9 +33,9 @@ Helpers example = Helper {"Name", "Size"}
                 | Helper {"Parent dir", "Name of new file"}
                 | Helper {"File to rename", "New name"};
                
-example.bind (createFile, [&fs] (std::string par, std::string rename) {
+example.bind (createFile, [&fs] (std::string par, std::string rename) mutable {
                                 implementation... }, 
-              [&fs] (std::string path, std::string name) {
+              [&fs] (std::string path, std::string name) mutable {
                     impl... };
                     
 example.launchAll ();
