@@ -19,7 +19,7 @@ void createFile (std::string name, size_t size) {
 
         ...implementation...
         std::cout << "File created succesfully!\n";
-        } 
+        };
         
 example.bind (createFile);
 ```
@@ -44,7 +44,7 @@ Helpers example = Helper {"Name", "Size"}
 example.bind (createFile, [&fs] (std::string par, std::string rename) mutable {
                                 implementation... }, 
               [&fs] (std::string path, std::string name) mutable {
-                    impl... };
+                    impl... });
                     
 example.launchAll ();
 ```
@@ -53,5 +53,5 @@ Also Helpers can be initialized in common way :
 ```C++
 Helpers example = {Helper {"Name", "Size"},
                    Helper {"Parent dir", "Name of new file"},
-                   Helper {"File to rename", "New name"}}
+                   Helper {"File to rename", "New name"}};
 ```                   
