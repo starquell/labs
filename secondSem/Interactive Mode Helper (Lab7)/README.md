@@ -1,4 +1,4 @@
-<h2>Interactive Mode Creator
+<h2>Interactive Mode Creator </h2>
 ______
 
 Class Helper implements Interactive mode in command line for any functions except generic lambdas :
