@@ -24,7 +24,7 @@ public:
 
     void push (Helper &&helper) {
 
-        mHelpers.push_back(std::forward<Helper>(helper));
+        mHelpers.push_back (std::forward <Helper>(helper));
     }
 
     template <class... Funcs>
@@ -72,20 +72,20 @@ public:
 
 using Helpers = HelperContainer;
 
+HelperContainer operator| (Helper lhs, Helper rhs) {
 
-HelperContainer operator|(Helper &&lhs, Helper &&rhs) {
-
-    HelperContainer container(std::forward<Helper>(lhs));
-    container.push(std::forward<Helper>(rhs));
+    HelperContainer container (std::move (lhs));
+    container.push (std::move (rhs));
 
     return container;
 }
 
-HelperContainer operator|(HelperContainer &&container, Helper &&helper) {
+HelperContainer operator| (HelperContainer &&container, Helper helper) {
 
-    container.push(std::forward<Helper>(helper));
+    container.push (std::move (helper));
     return container;
 }
+
 
 
 #endif //LAB7_HELPERCONTAINER_HPP

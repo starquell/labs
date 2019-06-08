@@ -13,8 +13,9 @@ public:
 
 int main (int argc, char** argv) {
 
+    Helper example {"Name", "Age"};
 
-    auto helpers =  Helper {"Name", "Age"}
+    auto helpers =  example
                    |  Helper {"Enter your str", "gw"}
                    |  Helper {""};
 
