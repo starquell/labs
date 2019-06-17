@@ -44,13 +44,16 @@ public:
 
         strcpy (this->time, converttime.c_str());
 
-        std::ifstream idread("databases/idstorage.txt");
+        std::ifstream idread("../databases/idstorage.txt");
+
+        if (!idread.is_open())
+            throw std::runtime_error {"No file \"../databases/idstorage.txt\"."};
 
         idread >> ID;
         ++ID;
         idread.close();
 
-        std::ofstream idwrite("databases/idstorage.txt", std::ofstream::trunc);
+        std::ofstream idwrite("../databases/idstorage.txt", std::ofstream::trunc);
         idwrite << ID;
     }
 
@@ -110,13 +113,15 @@ public:
 
         strcpy(time, converttime.c_str());
 
-        std::ifstream idread("databases/idstorage.txt");
+        std::ifstream idread("../databases/idstorage.txt");
+        if (!idread.is_open())
+            throw std::runtime_error {"No file \"../databases/idstorage.txt\"."};
 
         idread >> ID;
         ++ID;
         idread.close();
 
-        std::ofstream idwrite("databases/idstorage.txt", std::ofstream::trunc);
+        std::ofstream idwrite("../databases/idstorage.txt", std::ofstream::trunc);
         idwrite << ID;
     };
 

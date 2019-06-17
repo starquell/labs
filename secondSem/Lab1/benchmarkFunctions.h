@@ -33,7 +33,7 @@ void benchSort () {
             countingSort (testMonsters);
         } );
 
-        t.add(" " + std::to_string (elapsed) + " ");
+        t.add(" " + std::to_string (elapsed) + " ms ");
 
         std::shuffle (testMonsters.begin(), testMonsters.end(), random);
 
@@ -41,7 +41,7 @@ void benchSort () {
             radixSort (testMonsters);
         } );
 
-        t.add (" " + std::to_string (elapsed) + " ");
+        t.add (" " + std::to_string (elapsed) + " ms ");
 
         std::shuffle (testMonsters.begin(), testMonsters.end(), random);
 
@@ -53,7 +53,7 @@ void benchSort () {
             });
         } );
 
-        t.add (" " + std::to_string (elapsed) + " ");
+        t.add (" " + std::to_string (elapsed) + " ms ");
 
         std::shuffle (testMonsters.begin(), testMonsters.end(), random);
 
@@ -68,7 +68,7 @@ void benchSort () {
             });
         });
 
-        t.add (" " + std::to_string (elapsed) + " ");
+        t.add (" " + std::to_string (elapsed) + " ms ");
         t.endOfRow();
     }
 
@@ -106,7 +106,7 @@ time_t vectorTest(TextTable &t, size_t n){
     if (elapsed >= 10)
         limit = elapsed;
 
-    t.add(" " + std::to_string(elapsed) + " ");
+    t.add(" " + std::to_string(elapsed) + " ms ");
 
     begin = steady_clock::now();
 
@@ -116,7 +116,7 @@ time_t vectorTest(TextTable &t, size_t n){
     end = steady_clock::now();
     elapsed = duration_cast<milliseconds>(end - begin).count();
 
-    t.add(" " + std::to_string(elapsed) + " ");
+    t.add(" " + std::to_string(elapsed) + " ms ");
     t.endOfRow();
 
     if (elapsed > 10)
@@ -145,7 +145,7 @@ time_t TextTest(TextTable &t, size_t n){
     if (elapsed > 10)
         limit = elapsed;
 
-    t.add(" " + std::to_string(elapsed) + " ");
+    t.add(" " + std::to_string(elapsed) + " ms ");
 
     begin = steady_clock::now();
 
@@ -158,7 +158,7 @@ time_t TextTest(TextTable &t, size_t n){
     if (elapsed > 10)
         limit = elapsed;
 
-    t.add(" " + std::to_string(elapsed) + " ");
+    t.add(" " + std::to_string(elapsed) + " ms ");
 
     std::ofstream benchmark("databases/benchmark.txt", std::ofstream::trunc);     //reseting file to write half of elements
 
@@ -181,7 +181,7 @@ time_t TextTest(TextTable &t, size_t n){
     if (elapsed > 10)
         limit = elapsed;
 
-    t.add(" " + std::to_string(elapsed) + " ");
+    t.add(" " + std::to_string(elapsed) + " ms ");
     t.endOfRow();
 
     return limit;
@@ -206,7 +206,7 @@ time_t BinaryTest(TextTable &t, size_t n){
     if (elapsed > 10)
         limit = elapsed;
 
-    t.add(" " + std::to_string(elapsed) + " ");
+    t.add(" " + std::to_string(elapsed) + " ms ");
 
     begin = steady_clock::now();
 
@@ -219,7 +219,7 @@ time_t BinaryTest(TextTable &t, size_t n){
     if (elapsed > 10)
         limit = elapsed;
 
-    t.add(" " + std::to_string(elapsed) + " ");
+    t.add(" " + std::to_string(elapsed) + " ms ");
 
     std::ifstream b("databases/binarybenchmark.txt", std::ios::binary | std::ios::out);
     b.seekg (0, std::ios::end);
@@ -233,7 +233,7 @@ time_t BinaryTest(TextTable &t, size_t n){
     if (elapsed > 10)
         limit = elapsed;
 
-    t.add(" " + std::to_string(elapsed) + " ");
+    t.add(" " + std::to_string(elapsed) + " ms ");
     t.endOfRow();
 
     return limit;
