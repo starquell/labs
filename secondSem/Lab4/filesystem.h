@@ -21,7 +21,7 @@ struct FilterForm {
 
             : name (std::move (_name)),
               minSize (_minSize),
-              maxSize (std::move (_maxSize))
+              maxSize (_maxSize)
     {}
 };
 
@@ -107,20 +107,23 @@ public:
 
     Directory* deleteDir (std::string_view path) {      // task 13
 
-        auto parent = findDirectory(path.data())->parent;
-        std::string ourName = findDirectory(path.data())->name;
+        const auto foundDir = findDirectory(path.data());
+        auto parent = foundDir->parent;
+        std::string ourName = foundDir->name;
 
-        Directory *newDir;
+        Directory *newDir = nullptr;
 
-        parent->children.erase (std::remove_if (parent->children.begin(), parent->children.end(),
+        parent->children.erase (std::remove_if (
+                parent->children.begin(), parent->children.end(),
 
-                [&ourName, &newDir] (auto dir) {
+                [&ourName, &newDir] (auto dir) mutable {
 
             if (dir->name == ourName) {
-
                 newDir = dir;
                 return true;
             }
+
+                    return false;
         }));
 
         newDir->parent = nullptr;

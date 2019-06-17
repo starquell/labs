@@ -128,10 +128,10 @@ void interactive (Filesystem &fs, bool show) {
                 }
 
                 if (fs.findDirectory (path))
-                    fs.deleteDir (path);
+                    delete fs.deleteDir (path);
 
                 else if (fs.findFile (path))
-                    fs.deleteFile (path);
+                    delete fs.deleteFile (path);
 
                 else {
                     cout << "No such file or directory!\n\n";
