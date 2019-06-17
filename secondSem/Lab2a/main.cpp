@@ -209,7 +209,7 @@ void benchmark (T &queue){
 
         auto end = steady_clock::now();
         time_t elapsed = duration_cast<milliseconds>(end - begin).count();
-        t.add(" " + std::to_string(elapsed) + " ");
+        t.add(" " + std::to_string(elapsed) + " ms ");
 
         begin = steady_clock::now();
         while (!queue.isEmpty())
@@ -217,14 +217,14 @@ void benchmark (T &queue){
 
         end = steady_clock::now();
         elapsed = duration_cast<milliseconds>(end - begin).count();
-        t.add(" " + std::to_string(elapsed) + " ");
+        t.add(" " + std::to_string(elapsed) + " ms ");
 
         begin = steady_clock::now();
         if (queue.isEmpty() || !queue.isEmpty())
             end = steady_clock::now();
 
         elapsed = duration_cast<milliseconds>(end - begin).count();
-        t.add(" " + std::to_string(elapsed) + " ");
+        t.add(" " + std::to_string(elapsed) + " ms ");
         t.endOfRow();
     }
 
