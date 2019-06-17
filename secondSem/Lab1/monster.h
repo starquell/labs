@@ -91,7 +91,7 @@ public:
         };
 
         std::mt19937 gen(clock());
-        std::uniform_int_distribution<> r1(0, monsterNames.size() - 1),
+        std::uniform_int_distribution <int> r1(0, monsterNames.size() - 1),
                 r2(1, 50000), r3(0, 1000), r5(1, 4);
 
         strcpy(name,  monsterNames[r1(gen)]);

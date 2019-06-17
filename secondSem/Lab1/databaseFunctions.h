@@ -9,13 +9,15 @@ using std::this_thread::sleep_for;
 void menuOut (const std::string& begin, const std::string& end){        // reading and cout menu from "selector.txt"
 
     std::ifstream selector("../selector.txt");
+    if (!selector.is_open())
+        throw std::runtime_error {"\"selector.txt\" is needed for interactive mode."};
+
     std::string s;
     bool ourtext{};
 
     if (begin == "bof")
         ourtext = true;
 
-    assert(selector.is_open());
     while (!selector.eof()) {
 
         if (s == end)
@@ -61,7 +63,8 @@ void saveToFile (std::vector <Monster> &monsters,  const std::string &path = "..
 void readFromFile (std::vector <Monster> &monsters, const std::string &path = "../databases/database.txt"){
 
     std::ifstream file(path);
-    assert(file.is_open());
+    if (!file.is_open())
+        throw std::runtime_error {"\"../databases/database.txt\" is needed for reading from file"};
 
     std::string name, attackType;
     int hp, ap, ID;
@@ -88,6 +91,8 @@ void readFromFile (std::vector <Monster> &monsters, const std::string &path = ".
 Monster findInFile (int key, const std::string &path = "../databases/benchmark.txt"){        //benchmark function
 
     std::ifstream file(path);
+    if (!file.is_open())
+        throw std::runtime_error {"\"../databases/benchmark.txt\" is needed for reading from file"};
 
     std::string name, attackType;
     int hp, ap, ID;
@@ -130,6 +135,10 @@ void readFromBinary(std::vector <Monster> &monsters, const std::string &path = "
 
     std::ifstream binary(path, std::ios::binary | std::ios::out);
 
+    if (!binary.is_open())
+        throw std::runtime_error {"\"../databases/binarystorage.txt\" is needed for reading from binary file"};
+
+
     char name[20], attackType[20];
     int hp, ap, ID;
     double attackChance;
@@ -157,6 +166,8 @@ void readFromBinary(std::vector <Monster> &monsters, const std::string &path = "
 Monster findInBinary(int key, const std::string &path = "../databases/binarybenchmark.txt"){     //benchmark function
 
     std::ifstream binary(path, std::ios::binary | std::ios::out);
+    if (!binary.is_open())
+        throw std::runtime_error {"\"../databases/binarybenchmark.txt\" is needed for reading from binary file"};
 
     char name[20], attackType[20];
     int hp, ap, ID;
