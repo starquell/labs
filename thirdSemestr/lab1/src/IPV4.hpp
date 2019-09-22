@@ -29,6 +29,8 @@ public:
     {
         if (first > 255 || second > 255 || third > 255 || fourth > 255)
             throw std::logic_error("Incorrect IPv4 address");
+
+        mOctets = {first, second, third, fourth};
     }
 
     explicit IPv4 (const std::string &ip) {
