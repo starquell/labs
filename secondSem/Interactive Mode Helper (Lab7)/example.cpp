@@ -1,34 +1,27 @@
 #include "Interactive.hpp"
 
 #include <iostream>
+#include <mutex>
 
 class Example {
 
 	int data;
+	std::mutex m;
 
 public:
 
 	Example (int _data) : data (_data) {}
+
+	void operator()(int h) {}
 };
 
 int main (int argc, char** argv) {
 
-    Helper example {"Name", "Age"};
+    Helper h{"Input"};
 
-    auto helpers =  example
-                   |  Helper {"Enter your str", "gw"}
-                   |  Helper {""};
-
-
-    auto func = [] (std::string x, int y) { std::cout << x << ' '; };
-
-
-    helpers.bind (func, [] (std::string x, std::string y) { std::cout << "Your street : " << x; },
-
-                 [] {std::cout << "std::cout";});
-
-
-
-   helpers.launchAll();
-
+    HelperContainer container (h);
+    Example ex{5};
+    h.bind(ex);
+    container.bind(ex);
+    container.launchAll();
 }

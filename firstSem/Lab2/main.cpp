@@ -96,7 +96,6 @@ void display(void)
     };
 
     glEnd();
-
     glutSwapBuffers();
 }
 

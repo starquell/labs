@@ -11,20 +11,18 @@ private:
     std::vector<Helper> mHelpers;
     unsigned counter = 0;
 
+    friend HelperContainer operator| (HelperContainer &&container, Helper helper);
+    friend HelperContainer operator| (Helper lhs, Helper rhs);
+
 public:
 
-    HelperContainer (Helper &&helper) {
+    HelperContainer (Helper helper) {
 
-        mHelpers.push_back(std::forward<Helper>(helper));
+        mHelpers.push_back(std::move (helper));
     }
 
     HelperContainer (std::initializer_list<Helper> list)
             : mHelpers(list) {
-    }
-
-    void push (Helper &&helper) {
-
-        mHelpers.push_back (std::forward <Helper>(helper));
     }
 
     template <class... Funcs>
@@ -38,6 +36,10 @@ public:
 
 private:
 
+    void push (Helper &&helper) {
+
+        mHelpers.push_back (std::forward <Helper>(helper));
+    }
 
     template<class Func>
     void bindImpl (Func &&func) {

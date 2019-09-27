@@ -1,9 +1,10 @@
-#ifndef LAB1_IPDETAIL_HPP
-#define LAB1_IPDETAIL_HPP
+#ifndef LAB1_IPUTILS_HPP
+#define LAB1_IPUTILS_HPP
 
 #include <sstream>
+#include <bitset>
 
-namespace detail {
+namespace utils {
 
     template <class Container, class Unary>
     std::string join(const Container &cont, const std::string &sep, const Unary &transform) {
@@ -29,6 +30,13 @@ namespace detail {
         ss << std::hex << hex;
         ss >> x;
         return x;
+    }
+
+    template <class Integer, size_t IntSize>
+    std::string inBinary (Integer integer) {
+        std::stringstream ss;
+        ss << std::bitset <IntSize> (integer);
+        return ss.str();
     }
 }
 
