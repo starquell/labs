@@ -1,57 +1,71 @@
-#ifndef LAB1_QUEUE_HPP
-#define LAB1_QUEUE_HPP
+#ifndef LAB1_LISTBASED_QUEUE_HPP
+#define LAB1_LISTBASED_QUEUE_HPP
+
 
 namespace Queue {
-
     template<typename T>
     class Listbased{
 
         struct Node {
             T data;
-            Node *next;
+            Node* next;
         };
 
-        Node *head;
+        using Ptr = Node*;
+
+        Ptr head;
+        std::size_t mSize;
 
     public:
-        using value_type = T;
 
-        Listbased() : head(nullptr) {
+        Listbased() : head(nullptr), mSize(0){
         }
 
-        void push(const value_type &data) {
+        void push (const T &data) {
             if (!head)
-                head = new Node{data};
+                head = new Node {data};
             else {
-                Node *temp = head;
+                Ptr temp = head;
                 while (temp->next)
                     temp = temp->next;
 
-                temp->next = new Node{data};
+                temp->next = new Node {data};
             }
+
+            ++mSize;
         }
 
         void pop() {
+
             if (!head)
                 return;
-
-            Node *temp = head;
+            Ptr temp = head;
             head = temp->next;
+
             delete temp;
+
+            --mSize;
         }
 
-        value_type &front() const {
-            return head->data;
+        T &front() const {
+            if (head)
+                return head->data;
+            else
+                throw std::out_of_range("");
         }
 
         [[nodiscard]] bool empty() const {
             return !head;
         };
 
+        auto size() const {
+            return mSize;
+        }
+
         ~Listbased() {
 
-            auto *current = head;
-            Node *next;
+            Ptr current = head;
+            Ptr next;
 
             while (current) {
                 next = current->next;
@@ -61,4 +75,4 @@ namespace Queue {
         }
     };
 }
-#endif //LAB1_QUEUE_HPP
+#endif

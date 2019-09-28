@@ -1,40 +1,45 @@
-#ifndef LAB1_ARRAYBASED_HPP
-#define LAB1_ARRAYBASED_HPP
+#ifndef LAB1_QUEUE_ARRAYBASED_HPP
+#define LAB1_QUEUE_ARRAYBASED_HPP
 
 namespace Queue {
-    template<typename T, size_t N>
+    template<typename T, std::size_t N>
     class Arraybased {
 
-        T a[N];
-        size_t size;
+        T mStorage[N];
+        std::size_t mSize;
 
     public:
 
-        using value_type = T;
-
-        Arraybased() : size(0) {
+        Arraybased() : mSize(0) {
         }
 
-        void push(const value_type &data) {
-            if (size >= N)
+        void push (const T &data) {
+            if (mSize == N)
                 throw std::out_of_range("Out of range");
             else
-                a[size++] = data;
+                mStorage[mSize++] = data;
         }
 
         void pop() {
             if (empty())
                 return;
 
-            --size;
+            for (auto i = 0; i < mSize - 1; ++i)
+                mStorage[i] = mStorage[i + 1];
+
+            --mSize;
         }
 
-        T &front() const {
-            return a[size - 1];
+        const T& front() {
+            return mStorage[0];
         }
 
         [[nodiscard]] bool empty() const {
-            return size == 0;
+            return mSize == 0;
+        }
+
+        auto size() const {
+            return mSize;
         }
     };
 }

@@ -3,43 +3,44 @@
 
 namespace Stack {
 
-    template <typename T, size_t N>
+    template <typename T, std::size_t N>
     class Arraybased {
 
-        T a[N];
-        size_t size;
+        T mStorage[N];
+        std::size_t mSize;
 
     public:
 
-        using value_type = T;
-
-        Arraybased() : size(0) {
+        Arraybased() : mSize(0) {
         }
 
-        void push(const value_type &data) {
-            if (size >= N)
-                std::cout << "Out of array!";
+        void push (const T &data) {
+            if (mSize == N)
+                throw std::out_of_range("Max capacity is reached.");
             else
-                a[size++] = data;
+                mStorage[mSize++] = data;
         }
 
         void pop() {
             if (empty())
                 return;
 
-            for (auto i = 0; i <= size; ++i)
-                a[i] = a[i + 1];
-
-            --size;
+            --mSize;
         }
 
-        T &front() const {
-            return a[0];
+        const T &top() {
+            return mStorage[mSize - 1];
         }
 
         [[nodiscard]] bool empty() const {
-            return size == 0;
+            return mSize == 0;
         }
+
+        auto size() const {
+            return size;
+        }
+
+
     };
 }
 
