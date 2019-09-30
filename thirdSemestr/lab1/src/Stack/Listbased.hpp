@@ -1,10 +1,9 @@
 #ifndef LAB1_STACK_LISTBASED_HPP
 #define LAB1_STACK_LISTBASED_HPP
 
-
 namespace Stack {
 
-    template<typename T>
+    template <class T>
     class Listbased {
 
         struct Node {

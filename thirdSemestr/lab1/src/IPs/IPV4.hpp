@@ -25,6 +25,12 @@ public:
     template <class Stream>
     friend Stream& operator<< (Stream &stream, const IPv4 &iPv4);
 
+    template <class It>
+    explicit IPv4 (It begin)
+                   : mOctets ({(uint8_t)*begin, (uint8_t )*(begin + 1),
+                              (uint8_t)*(begin + 2), (uint8_t)*(begin + 3)})
+    {}
+
     explicit IPv4 (uint8_t first, uint8_t second,
                    uint8_t third, uint8_t fourth)
                    :  mOctets ({first, second, third, fourth})
@@ -56,6 +62,28 @@ public:
                   (uint8_t) stoi(splitted[1]),
                     (uint8_t) stoi(splitted[2]),
                    (uint8_t) stoi(splitted[3]));
+    }
+
+    IPv4 operator+ (int i) {
+        auto copied = mOctets;
+        for (auto it = copied.end() - 1; it >= copied.begin(); --it)
+            if (*it < INT8_MAX) {
+                ++(*it);
+                break;
+            }
+        return IPv4(mOctets.begin());
+    }
+    bool operator< (const IPv4 &other){
+        return std::lexicographical_compare(mOctets.begin(), mOctets.end(),
+                                            other.mOctets.begin(), other.mOctets.end());
+    }
+
+    bool operator== (const IPv4 &other){
+        return std::equal(mOctets.begin(), mOctets.end(), other.mOctets.begin());
+    }
+
+    bool operator> (const IPv4 &other){
+        return !(*this < other or *this == other);
     }
 };
 

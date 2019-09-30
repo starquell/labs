@@ -20,7 +20,7 @@ namespace Queue {
             mStorage.pop();
         }
 
-        T& front() const {
+        T front() const {
             return mStorage.front();
         }
 

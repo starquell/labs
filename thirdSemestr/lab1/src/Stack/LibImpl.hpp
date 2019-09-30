@@ -5,14 +5,14 @@
 
 namespace Stack {
 
-    template <class T>
+    template<class T>
     class STLImpl {
 
-        std::stack <T> mStorage;
+        std::stack<T> mStorage;
 
     public:
 
-        void push (const T& data) {
+        void push(const T &data) {
             mStorage.push(data);
         }
 
@@ -20,7 +20,7 @@ namespace Stack {
             mStorage.pop();
         }
 
-        T& top() const {
+        T top() const {
             return mStorage.top();
         }
 

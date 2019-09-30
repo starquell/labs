@@ -39,8 +39,6 @@ namespace Stack {
         auto size() const {
             return size;
         }
-
-
     };
 }
 

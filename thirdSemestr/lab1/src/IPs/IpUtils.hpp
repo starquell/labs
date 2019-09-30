@@ -38,6 +38,13 @@ namespace utils {
         ss << std::bitset <IntSize> (integer);
         return ss.str();
     }
+
+    template <class Integer>
+    Integer fromBinary (const std::string &bin) {
+        return (Integer)std::stoi(bin, nullptr, 2);
+    }
+
+
 }
 
 #endif
