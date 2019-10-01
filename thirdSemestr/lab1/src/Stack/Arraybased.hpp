@@ -1,6 +1,8 @@
 #ifndef LAB1_STACK_ARRAYBASED_HPP
 #define LAB1_STACK_ARRAYBASED_HPP
 
+#include <stdexcept>
+
 namespace Stack {
 
     template <typename T, std::size_t N>
@@ -10,6 +12,7 @@ namespace Stack {
         std::size_t mSize;
 
     public:
+        using value_type = T;
 
         Arraybased() : mSize(0) {
         }
@@ -37,7 +40,7 @@ namespace Stack {
         }
 
         auto size() const {
-            return size;
+            return mSize;
         }
     };
 }

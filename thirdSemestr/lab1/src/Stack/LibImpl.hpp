@@ -11,6 +11,7 @@ namespace Stack {
         std::stack<T> mStorage;
 
     public:
+        using value_type = T;
 
         void push(const T &data) {
             mStorage.push(data);

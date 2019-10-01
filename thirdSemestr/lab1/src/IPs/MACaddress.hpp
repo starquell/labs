@@ -37,9 +37,9 @@ public:
         std::vector <std::string> splited;
         boost::algorithm::split(splited, macAddress, boost::algorithm::is_any_of(":"));
 
-        return MAC (utils::to_int(splited[0]), utils::to_int(splited[1]),
-                utils::to_int(splited[2]), utils::to_int(splited[3]),
-                utils::to_int(splited[4]), utils::to_int(splited[5]));
+        return MAC (utils::to_int <uint16_t> (splited[0]), utils::to_int <uint16_t>(splited[1]),
+                utils::to_int <uint16_t> (splited[2]), utils::to_int <uint16_t>(splited[3]),
+                utils::to_int <uint16_t>(splited[4]), utils::to_int <uint16_t>(splited[5]));
     }
 };
 #endif //LAB1_MACADDRESS_HPP

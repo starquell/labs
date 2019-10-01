@@ -31,9 +31,9 @@ public:
                               (uint8_t)*(begin + 2), (uint8_t)*(begin + 3)})
     {}
 
-    explicit IPv4 (uint8_t first, uint8_t second,
-                   uint8_t third, uint8_t fourth)
-                   :  mOctets ({first, second, third, fourth})
+    IPv4 (uint8_t first, uint8_t second,
+            uint8_t third, uint8_t fourth)
+            :  mOctets ({first, second, third, fourth})
     {}
 
     [[nodiscard]] std::string address() const {
@@ -64,25 +64,34 @@ public:
                    (uint8_t) stoi(splitted[3]));
     }
 
-    IPv4 operator+ (int i) {
+    IPv4 operator+ (unsigned i) {
         auto copied = mOctets;
         for (auto it = copied.end() - 1; it >= copied.begin(); --it)
-            if (*it < INT8_MAX) {
-                ++(*it);
+            if (unsigned (*it) + i < UINT8_MAX) {
+                if (i == 0)
+                    break;
+                *it += i;
                 break;
             }
-        return IPv4(mOctets.begin());
+            else {
+                if (i == 0)
+                    break;
+                i -= UINT8_MAX - *it;
+                *it = 0;
+            }
+
+        return IPv4(copied.begin());
     }
-    bool operator< (const IPv4 &other){
+    bool operator< (const IPv4 &other) const {
         return std::lexicographical_compare(mOctets.begin(), mOctets.end(),
                                             other.mOctets.begin(), other.mOctets.end());
     }
 
-    bool operator== (const IPv4 &other){
+    bool operator== (const IPv4 &other) const {
         return std::equal(mOctets.begin(), mOctets.end(), other.mOctets.begin());
     }
 
-    bool operator> (const IPv4 &other){
+    bool operator> (const IPv4 &other) const {
         return !(*this < other or *this == other);
     }
 };

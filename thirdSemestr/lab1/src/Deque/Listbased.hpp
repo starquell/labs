@@ -85,10 +85,13 @@ namespace Deque {
         };
 
     public:
+
+        using value_type = T;
+
         Listbased() : head(nullptr), mSize(0)
         {}
 
-        void pushBack (const T &data) {
+        void push (const T &data) {
             if (!head)
                 head = new Node{data};
             else {
@@ -167,6 +170,10 @@ namespace Deque {
 
         Iterator end() {
             return Iterator (head, mSize) + mSize;
+        }
+
+        bool empty () const {
+            return mSize == 0;
         }
 
     private:

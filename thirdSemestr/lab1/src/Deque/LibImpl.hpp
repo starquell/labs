@@ -6,17 +6,19 @@
 namespace Deque {
 
     template <class T>
-    class LibImpl {
+    class STLImpl {
 
         std::deque <T> mStorage;
 
     public:
 
+        using value_type = T;
+
         void pushFront(const T& data) {
             mStorage.push_front(data);
         }
 
-        void pushBack(const T& data) {
+        void push(const T& data) {
             mStorage.push_back(data);
         }
 
@@ -52,6 +54,10 @@ namespace Deque {
 
         auto end() const {
             return mStorage.end();
+        }
+
+        bool empty () const {
+            return mStorage.empty();
         }
     };
 }

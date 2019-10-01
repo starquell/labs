@@ -1,6 +1,8 @@
 #ifndef LAB1_QUEUE_ARRAYBASED_HPP
 #define LAB1_QUEUE_ARRAYBASED_HPP
 
+#include <stdexcept>
+
 namespace Queue {
     template<typename T, std::size_t N>
     class Arraybased {
@@ -9,6 +11,8 @@ namespace Queue {
         std::size_t mSize;
 
     public:
+
+        using value_type = T;
 
         Arraybased() : mSize(0) {
         }

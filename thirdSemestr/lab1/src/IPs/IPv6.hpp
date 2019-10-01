@@ -61,10 +61,10 @@ public:
             if (hex.empty())
                 hex = "0";
 
-        return IPv6 (utils::to_int(splited[0]), utils::to_int(splited[1]),
-                utils::to_int(splited[2]), utils::to_int(splited[3]),
-                utils::to_int(splited[4]), utils::to_int(splited[5]),
-                utils::to_int(splited[6]), utils::to_int(splited[7]));
+        return IPv6 (utils::to_int <uint16_t> (splited[0]), utils::to_int <uint16_t> (splited[1]),
+                utils::to_int <uint16_t> (splited[2]), utils::to_int <uint16_t> (splited[3]),
+                utils::to_int <uint16_t> (splited[4]), utils::to_int <uint16_t> (splited[5]),
+                utils::to_int <uint16_t> (splited[6]), utils::to_int <uint16_t> (splited[7]));
     }
 
     static IPv6 fromMAC (const MAC &mac){
@@ -74,7 +74,7 @@ public:
         std::vector <std::string> octets;
         boost::split(octets, address, boost::is_any_of(":"));
 
-        std::bitset<8> firstoctet (utils::to_int(octets.front()));
+        std::bitset<8> firstoctet (utils::to_int <uint16_t> (octets.front()));
         firstoctet.flip(6);
         octets[0] = std::to_string((unsigned short)firstoctet.to_ulong());
 
@@ -113,22 +113,30 @@ public:
     IPv6 operator+ (int i) {
         auto copied = hexs;
         for (auto it = copied.end() - 1; it >= copied.begin(); --it)
-            if (*it < INT16_MAX) {
+            if ((unsigned) *it < UINT16_MAX) {
+                if (i == 0)
+                    break;
                 ++(*it);
                 break;
             }
-        return IPv6(hexs.begin());
+            else {
+                if (i == 0)
+                    break;
+                i -= UINT16_MAX - *it;
+                *it = 0;
+            }
+        return IPv6(copied.begin());
     }
-    bool operator< (const IPv6 &other){
+    bool operator< (const IPv6 &other) const{
         return std::lexicographical_compare(hexs.begin(), hexs.end(),
                                             other.hexs.begin(), other.hexs.end());
     }
 
-    bool operator== (const IPv6 &other){
+    bool operator== (const IPv6 &other) const{
         return std::equal(hexs.begin(), hexs.end(), other.hexs.begin());
     }
 
-    bool operator> (const IPv6 &other){
+    bool operator> (const IPv6 &other) const {
         return !(*this < other or *this == other);
     }
 };

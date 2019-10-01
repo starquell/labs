@@ -17,6 +17,7 @@ namespace Queue {
         std::size_t mSize;
 
     public:
+        using value_type = T;
 
         Listbased() : head(nullptr), mSize(0){
         }

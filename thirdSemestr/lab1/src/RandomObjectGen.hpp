@@ -15,104 +15,107 @@
 #include "IPs/IPV4.hpp"
 #include "IPs/IPv6.hpp"
 #include "IPs/CIDR.hpp"
+#include "Deque/Listbased.hpp"
+#include "Deque/LibImpl.hpp"
 
 
-template <class Integer>
-class RandomObjectGenerator {
+template <typename R, typename Something, class... Args>
+auto randomObject() -> R;
 
-public:
-    Integer operator()(int from = 0, int to = std::numeric_limits<Integer>::max()) {
-        static std::mt19937 gen(std::random_device{}());
-        static std::uniform_int_distribution<Integer> dis(from, to);
+template <typename T, T from = std::numeric_limits<T>::min(),
+         T to = std::numeric_limits<T>::max(),
+         typename = std::enable_if_t<std::is_integral_v<T> || std::is_same_v<T, double>>>
+
+auto randomObject() {
+
+    static std::mt19937 gen(std::random_device{}());
+
+    if constexpr (std::is_integral_v<T>) {
+        static std::uniform_int_distribution<T> dis(from, to);
         return dis(gen);
     }
-};
-
-template <>
-class RandomObjectGenerator <double> {
-
-public:
-    int operator ()(int from = 0, int to = 1000000){
-        static std::mt19937 gen(std::random_device{}());
+    else {
         static std::uniform_real_distribution<double> dis(from, to);
         return dis(gen);
     }
-};
 
-template <>
-class RandomObjectGenerator <std::string> {
+}
 
-public:
-    std::string operator()(std::size_t size = 10){
-        static std::string alphabet = "qwertyuiopasdfghjklzxcvbnm1234567890";
-        static std::mt19937 gen(std::random_device{}());
-        static std::uniform_real_distribution<double> dis(0, alphabet.size() - 1);
-        std::string result;
-        for (auto i = 0; i <alphabet.size() - 1; ++i)
-            result += alphabet[dis(gen)];
-        return result;
-    }
-};
+template<typename T, typename Container>
+constexpr inline bool hasPush = std::is_same_v<Container, Stack::Listbased<T>>
+                             || std::is_same_v<Container, Stack::STLImpl<T>>
+                             || std::is_same_v<Container, Queue::Listbased<T>>
+                             || std::is_same_v<Container, Queue::STLImpl<T>>;
 
-template <class T>
-class RandomObjectGenerator <std::vector<T>> {
 
-public:
-    std::vector<T> operator()(std::size_t size = 10) {
-        std::vector <T> result (size);
-        RandomObjectGenerator<T> gen;
+template <typename Container>
+constexpr inline bool hasPushBack = std::is_same_v <Container, std::vector<typename Container::value_type>>
+                                 || std::is_same_v<Container, Deque::Listbased<typename Container::value_type>>
+                                 || std::is_same_v<Container, Deque::STLImpl<typename Container::value_type>>;
+
+
+
+template <typename Container, std::size_t size,
+          typename = std::enable_if_t <std::is_same_v <Container, std::string>
+                                       || hasPush<Container>
+                                       || hasPushBack <Container>>>
+auto randomObject() {
+
+    Container result;
+    if constexpr (hasPush <Container>) {
+
         for (auto i = 0; i < size; ++i)
-            result.push_back(gen());
+            result.push(randomObject<typename Container::value_type>());
         return result;
     }
-};
+    else if constexpr (hasPushBack <Container>) {
+        for (auto i = 0; i < size; ++i)
+            result.pushBack(randomObject<typename Container::value_type>());
+        return result;
+    }
+    else {
+        static std::string alphabet = "qwertyuiopasdfghjklzxcvbnm1234567890";
 
-template <>
-class RandomObjectGenerator <IPv4> {
+        for (auto i = 0; i < alphabet.size() - 1; ++i)
+            result += alphabet[randomObject <size_t, 0, 24>()];
+        return result;
+    }
+}
 
-public:
-    IPv4 operator() () {
-        RandomObjectGenerator<uint8_t> gen;
-        return IPv4 (gen(), gen(), gen(), gen());
+
+
+template <typename IP,
+          typename = std::enable_if_t <std::is_same_v<IP, IPv4>
+                                    || std::is_same_v<IP, IPv6>>>
+auto randomObject () {
+
+    if constexpr (std::is_same_v<IP, IPv4>) {
+        return IPv4 (randomObject<uint8_t, 0, 255> (),
+                     randomObject<uint8_t, 0, 255> (),
+                     randomObject<uint8_t, 0, 255> (),
+                     randomObject<uint8_t, 0, 255> ());
+    }
+    else {
+        return IPv6 (randomObject<uint16_t, 0, std::numeric_limits<uint16_t>::max()> (),
+                     randomObject<uint16_t, 0, std::numeric_limits<uint16_t>::max()> (),
+                     randomObject<uint16_t, 0, std::numeric_limits<uint16_t>::max()> (),
+                     randomObject<uint16_t, 0, std::numeric_limits<uint16_t>::max()> (),
+                     randomObject<uint16_t, 0, std::numeric_limits<uint16_t>::max()> (),
+                     randomObject<uint16_t, 0, std::numeric_limits<uint16_t>::max()> (),
+                     randomObject<uint16_t, 0, std::numeric_limits<uint16_t>::max()> (),
+                     randomObject<uint16_t, 0, std::numeric_limits<uint16_t>::max()> ());
     }
 };
 
-template <>
-class RandomObjectGenerator <IPv6> {
-
-public:
-    IPv6 operator() (){
-        RandomObjectGenerator<uint16_t> gen;
-        return IPv6(gen(), gen(), gen(), gen(),
-                gen(), gen(), gen(), gen());
-    }
+template <typename ParCIDR, typename IP,
+          typename = std::enable_if_t <std::is_same_v<CIDR<IP>>>>
+auto randomObject () {
+    if constexpr (std::is_same<IP, IPv4>::value)
+        return CIDR<IP> (randomObject<IPv4>(),
+                         randomObject<int, 0, IPv4::bitsNumber()/2> ());
+    else
+        return  CIDR<IP> (randomObject<IPv6>(),
+                          randomObject<int, 0, IPv6::bitsNumber()/2> ());
 };
-
-template <class IP>
-class RandomObjectGenerator <CIDR<IP>> {
-
-public:
-    CIDR<IP> operator ()(){
-        if constexpr (std::is_same<IP, IPv4>::value)
-            return CIDR<IP> (RandomObjectGenerator<IPv4>{}(),
-                             RandomObjectGenerator<int>{}(0, IPv4::bitsNumber()/2));
-        if constexpr (std::is_same<IP, IPv6>::value)
-            return  CIDR<IP> (RandomObjectGenerator<IPv6>{}(),
-                              RandomObjectGenerator<int>{}(0, IPv6::bitsNumber()/2));
-    }
-};
-
-//template <class Container, class T>
-//class RandomObjectGenerator <Container<T>> {
-//
-//public:
-//    Container<T> operator()(std::size_t size = 10) {
-//        Container<T> result;
-//        RandomObjectGenerator<T> gen;
-//        for (auto i = 0; i < size; ++i)
-//            result.push(gen());
-//        return result;
-//    }
-//};
 
 #endif //LAB1_RANDOMOBJECTGEN_HPP

@@ -27,7 +27,7 @@ public:
     }
 
     [[nodiscard]] std::string address() const {
-        return mIP.address() + '/' + mSubnetBits;
+        return mIP.address() + '/' + std::to_string(mSubnetBits);
     }
 
     auto& ip() const {
@@ -83,5 +83,9 @@ public:
         }
     }
 };
+
+template <class IP>
+CIDR (IP ip, ushort subnetBits) -> CIDR<IP>;
+
 
 #endif //LAB1_CIDR_HPP

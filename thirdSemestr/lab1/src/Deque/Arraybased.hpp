@@ -26,15 +26,15 @@ namespace Deque{
                 return *this;
             }
 
-            bool operator== (Iterator &other) const {
+            bool operator== (const Iterator &other) const {
                 return mBegin == other.mBegin and mPos == other.mPos;
             }
 
-            bool operator!= (Iterator &other) const {
+            bool operator!= (const Iterator &other) const {
                 return !(*this == other);
             }
 
-            Iterator operator+ (std::size_t index) {
+            Iterator operator+ (std::size_t index) const {
                 if (mPos + index > mArraySize)
                     throw std::out_of_range("");
 
@@ -43,7 +43,7 @@ namespace Deque{
                 return temp;
             }
 
-            Iterator operator- (std::size_t index) {
+            Iterator operator- (std::size_t index) const {
                 if (mPos - index <= 0)
                     throw std::out_of_range("");
 
@@ -64,10 +64,12 @@ namespace Deque{
 
     public:
 
+        using value_type = T;
+
         Arraybased() : mSize(0) {
         }
 
-        void pushBack (const T &data) {
+        void push (const T &data) {
             if (mSize == N)
                 throw std::out_of_range("Max capacity is reached.");
             else
@@ -123,6 +125,10 @@ namespace Deque{
 
         Iterator end() {
             return Iterator(mStorage, mSize) + mSize;
+        }
+
+        bool empty() const {
+            return mSize == 0;
         }
     private:
         T mStorage[N];

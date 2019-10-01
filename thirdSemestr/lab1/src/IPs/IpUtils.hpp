@@ -24,10 +24,11 @@ namespace utils {
         return stream.str();
     }
 
-    unsigned short to_int(const std::string &hex) {
-        unsigned short x;
+     template <class Integer>
+     Integer to_int (const std::string &hex) {
+        Integer x;
         std::stringstream ss;
-        ss << std::hex << hex;
+        ss << std::hex << "0x" << hex;
         ss >> x;
         return x;
     }
