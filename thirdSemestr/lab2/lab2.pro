@@ -1,8 +1,8 @@
-QT       += core gui
+QT       += core gui sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-CONFIG += c++11
+CONFIG += c++17
 
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
@@ -17,13 +17,17 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     main.cpp \
-    MainWindow.cpp
+    src/Notepad.cpp
 
 HEADERS += \
-    MainWindow.h
+    src/DB.hpp \
+    src/NoteActions.hpp \
+    src/Notepad.hpp \
+    src/UIUtils.hpp
 
 FORMS += \
     MainWindow.ui
+
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
