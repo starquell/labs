@@ -7,7 +7,7 @@
 - Експорт всіх нотаток в файл
 - Hotkeys
 
->![Main window](https://i.imgur.com/TxXy5VQ.png)
+>![Main window](https://i.imgur.com/undefined.png)
 
 
 
