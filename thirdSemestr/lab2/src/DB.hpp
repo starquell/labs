@@ -4,12 +4,7 @@
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QSqlError>
-#include <QDateTime>
-#include <QMessageBox>
 #include <QVariant>
-
-#include <iostream>
-#include <cassert>
 
 namespace DBConfig {
 

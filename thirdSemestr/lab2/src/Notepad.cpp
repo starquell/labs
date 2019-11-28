@@ -8,7 +8,6 @@
 #include <QSqlTableModel>
 #include <QAbstractItemModel>
 #include <QSqlRecord>
-#include <QSqlQuery>
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QString>

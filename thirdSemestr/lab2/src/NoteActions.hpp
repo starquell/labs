@@ -1,16 +1,13 @@
 #ifndef NOTESAVER_H
 #define NOTESAVER_H
 
+#include "DB.hpp"
+
 #include <QSqlTableModel>
 #include <QSqlRecord>
-#include <QMessageBox>
 #include <QString>
-#include <QFile>
-#include <QTextStream>
 
 #include <fstream>
-
-#include "DB.hpp"
 
 namespace NoteActions {
 
@@ -27,8 +24,6 @@ namespace NoteActions {
             ofs << std::endl;
         }
     }
-
-  //  void moveToArchive ()
 }
 
 #endif // NOTESAVER_H
