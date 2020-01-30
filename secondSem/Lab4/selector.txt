@@ -1,7 +1,0 @@
-    --main
-    1. Create new directory.
-    2. Create file.
-    3. Get directory / file info.
-    4. Delete directory or file.
-    5. Get path by directory/file name.
-    6. Show all in directory.

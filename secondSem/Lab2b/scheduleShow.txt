@@ -1,1 +1,0 @@
-1   Installing_package  10000   3   1   Downloading_new_browser 15000   1   Installing_this_browser  7000   3   2   3   4

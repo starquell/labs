@@ -1,0 +1,24 @@
+Pushing 1000000 ints to queue
+
+Release:
+
+Benchmark                                        Time             CPU   Iterations
+----------------------------------------------------------------------------------
+pushBM/dynamicPushBM/iterations:1000000       7.83 ns         7.83 ns      1000000
+pushBM/staticPushBM/iterations:1000000        5.56 ns         5.54 ns      1000000
+pushBM/listPushBM/iterations:1000000          58.7 ns         58.7 ns      1000000
+popBM/dynamicPopBM/iterations:1000000        0.387 ns        0.387 ns      1000000
+popBM/staticPopBM/iterations:1000000         0.768 ns        0.768 ns      1000000
+popBM/listPopBM/iterations:1000000            11.9 ns         11.9 ns      1000000
+
+Debug:
+
+----------------------------------------------------------------------------------
+Benchmark                                        Time             CPU   Iterations
+----------------------------------------------------------------------------------
+pushBM/dynamicPushBM/iterations:1000000       67.0 ns         67.0 ns      1000000
+pushBM/staticPushBM/iterations:1000000        17.4 ns         17.4 ns      1000000
+pushBM/listPushBM/iterations:1000000           121 ns          121 ns      1000000
+popBM/dynamicPopBM/iterations:1000000         20.3 ns         20.3 ns      1000000
+popBM/staticPopBM/iterations:1000000          23.3 ns         23.3 ns      1000000
+popBM/listPopBM/iterations:1000000             155 ns          130 ns      1000000
