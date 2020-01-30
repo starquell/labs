@@ -1,0 +1,47 @@
+    1. Add new monster
+    2. Save database to text file
+    3. Clean file
+    4. Restore from file
+    5. Save database to binary file
+    6. Restore from binary file
+    7. Clean binary file
+    8. Modify monster with name ...
+    9. Delete monster with name ...
+    10. Find monsters using end of name
+    11. Find monsters using type of special attack
+    12. Find monsters using chance of special attack higher than set
+    13. Find using time
+    14. Sort monsters by attack type
+    15. Sort monsters by health
+    16. Custom sort
+    17. Show database
+- monster modify
+ What has to be modified?   1. Name
+                            2. Health points
+                            3. Attack points
+                            4. Chance of special attack
+                            5. Type of special attack
+- special attack selection
+  Choose type of special ability :
+                                     1. Double damage
+                                     2. Repeat attack
+                                     3. Heal
+                                     4. Paralyse enemy
+- sort first
+ Choose parameter to sort firstly :
+                                     1. Name
+                                     2. Hp
+                                     3. Ap
+                                     4. Attack chance
+                                     5. Attack type
+                                     6. Time
+- sort second
+Choose parameter to sort secondly :
+                                     1. Name
+                                     2. Hp
+                                     3. Ap
+                                     4. Attack chance
+                                     5. Attack type
+                                     6. Time
+
+    Press any other key to sort only by first parameter
