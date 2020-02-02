@@ -7,12 +7,22 @@
 
 namespace lab::impl {
 
+    /**
+     * @brief Class that holds queue implementation based on std::list
+     *      \b Operations complexity:
+     *      \li Push - O(1)
+     *      \li Pop - O(1)
+     */
     template <typename T>
     class LinkedListQueue : public IQueue<T> {
     public:
 
         explicit LinkedListQueue() = default;
 
+        /**
+         *  @brief Constructs queue from arbitary number of args
+         *  @param Args must be same type
+         */
         template <typename... Ts>
         LinkedListQueue(Ts&&... args);
 

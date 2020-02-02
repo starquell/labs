@@ -1,0 +1,56 @@
+\hypertarget{classlab_1_1impl_1_1IQueue}{}\section{lab\+:\+:impl\+:\+:I\+Queue$<$ T $>$ Class Template Reference}
+\label{classlab_1_1impl_1_1IQueue}\index{lab\+::impl\+::\+I\+Queue$<$ T $>$@{lab\+::impl\+::\+I\+Queue$<$ T $>$}}
+
+
+Interface for queue implementations.  
+
+
+
+
+{\ttfamily \#include $<$Queue\+Interface.\+hpp$>$}
+
+
+
+Inheritance diagram for lab\+:\+:impl\+:\+:I\+Queue$<$ T $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classlab_1_1impl_1_1IQueue__inherit__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classlab_1_1impl_1_1IQueue_ada5c0aea26506e96fca44bf54d7ee7c1}\label{classlab_1_1impl_1_1IQueue_ada5c0aea26506e96fca44bf54d7ee7c1}} 
+using {\bfseries value\+\_\+type} = T
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classlab_1_1impl_1_1IQueue_a9556cf62ce5ef96627fa2c2781615aab}\label{classlab_1_1impl_1_1IQueue_a9556cf62ce5ef96627fa2c2781615aab}} 
+virtual void \hyperlink{classlab_1_1impl_1_1IQueue_a9556cf62ce5ef96627fa2c2781615aab}{push} (const T \&value)=0
+\begin{DoxyCompactList}\small\item\em Inserts value to end of the queue. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classlab_1_1impl_1_1IQueue_a27c506405003a4b28bbd2c1a57589dad}\label{classlab_1_1impl_1_1IQueue_a27c506405003a4b28bbd2c1a57589dad}} 
+virtual void \hyperlink{classlab_1_1impl_1_1IQueue_a27c506405003a4b28bbd2c1a57589dad}{push} (T \&\&value)=0
+\begin{DoxyCompactList}\small\item\em Inserts value to end of the queue. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classlab_1_1impl_1_1IQueue_abdb1a94620a77e5a193b0c7ed742232f}\label{classlab_1_1impl_1_1IQueue_abdb1a94620a77e5a193b0c7ed742232f}} 
+virtual T \hyperlink{classlab_1_1impl_1_1IQueue_abdb1a94620a77e5a193b0c7ed742232f}{pop} ()=0
+\begin{DoxyCompactList}\small\item\em Removes first element in queue. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classlab_1_1impl_1_1IQueue_a4b0c950ff62dba782584a969e788f5a5}\label{classlab_1_1impl_1_1IQueue_a4b0c950ff62dba782584a969e788f5a5}} 
+virtual const T \& \hyperlink{classlab_1_1impl_1_1IQueue_a4b0c950ff62dba782584a969e788f5a5}{front} () const =0
+\begin{DoxyCompactList}\small\item\em Returns first element in queue. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classlab_1_1impl_1_1IQueue_a593e9263fbdcf840a05a21c6d8126213}\label{classlab_1_1impl_1_1IQueue_a593e9263fbdcf840a05a21c6d8126213}} 
+virtual bool \hyperlink{classlab_1_1impl_1_1IQueue_a593e9263fbdcf840a05a21c6d8126213}{empty} () const noexcept=0
+\begin{DoxyCompactList}\small\item\em Returns true if queue is empty. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$typename T$>$\newline
+class lab\+::impl\+::\+I\+Queue$<$ T $>$}
+
+Interface for queue implementations. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/starquell/\+C++/labs/4th\+Sem/lab1/src/Queue\+Interface.\+hpp\end{DoxyCompactItemize}

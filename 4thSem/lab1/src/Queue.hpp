@@ -7,7 +7,16 @@
 
 namespace lab {
 
-    enum class Storage {Static, Dynamic, LinkedList};
+    /**
+     *  @enum Storage
+     *  @brief Enumeration of storage types for usage in class Queue
+     *
+     */
+    enum class Storage {
+        Static,     /// Enables queue implementation defined in @param StaticArrayQueue
+        Dynamic,    /// Enables queue implementation defined in @param DynamicArrayQueue
+        LinkedList     /// Enables queue implementation defined in @param LinkedListQueue
+    };
 
     namespace impl {
 
@@ -38,6 +47,10 @@ namespace lab {
         };
     }
 
+    /**
+     *  @brief Class with queue implementation based on @p StorageType
+     *  @attention Use @param SizeForStaticStorage to set max queue size if StorageType == Static
+     */
     template <typename T,
               Storage StorageType = Storage::LinkedList,
               std::size_t... SizeForStaticStorage>
@@ -50,6 +63,10 @@ namespace lab {
 
         explicit Queue () = default;
 
+        /**
+       *  @brief Constructs queue from arbitary number of args
+       *  @param Args must be same type
+       */
         template <typename... Ts>
         Queue(Ts&&... args)
             : StorageImpl (std::forward<Ts>(args)...)

@@ -1,0 +1,87 @@
+\hypertarget{classlab_1_1impl_1_1DynamicArrayQueue}{}\section{lab\+:\+:impl\+:\+:Dynamic\+Array\+Queue$<$ T $>$ Class Template Reference}
+\label{classlab_1_1impl_1_1DynamicArrayQueue}\index{lab\+::impl\+::\+Dynamic\+Array\+Queue$<$ T $>$@{lab\+::impl\+::\+Dynamic\+Array\+Queue$<$ T $>$}}
+
+
+Class that holds queue implementation based on std\+::vector {\bfseries Operations} complexity\+:  
+
+
+
+
+{\ttfamily \#include $<$Dynamic\+Array.\+hpp$>$}
+
+
+
+Inheritance diagram for lab\+:\+:impl\+:\+:Dynamic\+Array\+Queue$<$ T $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=254pt]{classlab_1_1impl_1_1DynamicArrayQueue__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for lab\+:\+:impl\+:\+:Dynamic\+Array\+Queue$<$ T $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=254pt]{classlab_1_1impl_1_1DynamicArrayQueue__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename... Ts$>$ }\\\hyperlink{classlab_1_1impl_1_1DynamicArrayQueue_a1c39ec156dd583bb102839d7b4eec5d6}{Dynamic\+Array\+Queue} (Ts \&\&... args)
+\begin{DoxyCompactList}\small\item\em Constructs queue from arbitary number of args. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classlab_1_1impl_1_1DynamicArrayQueue_ad9efa241a1b44bcab089614fecfbd27b}\label{classlab_1_1impl_1_1DynamicArrayQueue_ad9efa241a1b44bcab089614fecfbd27b}} 
+void \hyperlink{classlab_1_1impl_1_1DynamicArrayQueue_ad9efa241a1b44bcab089614fecfbd27b}{push} (const T \&value) override
+\begin{DoxyCompactList}\small\item\em Inserts value to end of the queue. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classlab_1_1impl_1_1DynamicArrayQueue_a1ce4ca0bca46d2228c063aa22e031bff}\label{classlab_1_1impl_1_1DynamicArrayQueue_a1ce4ca0bca46d2228c063aa22e031bff}} 
+void \hyperlink{classlab_1_1impl_1_1DynamicArrayQueue_a1ce4ca0bca46d2228c063aa22e031bff}{push} (T \&\&value) override
+\begin{DoxyCompactList}\small\item\em Inserts value to end of the queue. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classlab_1_1impl_1_1DynamicArrayQueue_a5263af315b723598977cbe48395e624c}\label{classlab_1_1impl_1_1DynamicArrayQueue_a5263af315b723598977cbe48395e624c}} 
+T \hyperlink{classlab_1_1impl_1_1DynamicArrayQueue_a5263af315b723598977cbe48395e624c}{pop} () override
+\begin{DoxyCompactList}\small\item\em Removes first element in queue. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classlab_1_1impl_1_1DynamicArrayQueue_a1b944916c9b3a1b2c96a21e76e3aa4f0}\label{classlab_1_1impl_1_1DynamicArrayQueue_a1b944916c9b3a1b2c96a21e76e3aa4f0}} 
+const T \& \hyperlink{classlab_1_1impl_1_1DynamicArrayQueue_a1b944916c9b3a1b2c96a21e76e3aa4f0}{front} () const override
+\begin{DoxyCompactList}\small\item\em Returns first element in queue. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classlab_1_1impl_1_1DynamicArrayQueue_ad882a135dfde4d64fc00cd44c9cd0e5a}\label{classlab_1_1impl_1_1DynamicArrayQueue_ad882a135dfde4d64fc00cd44c9cd0e5a}} 
+bool \hyperlink{classlab_1_1impl_1_1DynamicArrayQueue_ad882a135dfde4d64fc00cd44c9cd0e5a}{empty} () const noexcept override
+\begin{DoxyCompactList}\small\item\em Returns true if queue is empty. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$typename T$>$\newline
+class lab\+::impl\+::\+Dynamic\+Array\+Queue$<$ T $>$}
+
+Class that holds queue implementation based on std\+::vector {\bfseries Operations} complexity\+: 
+
+\begin{DoxyItemize}
+\item Push -\/ O(1) \item Pop -\/ O(1) \end{DoxyItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classlab_1_1impl_1_1DynamicArrayQueue_a1c39ec156dd583bb102839d7b4eec5d6}\label{classlab_1_1impl_1_1DynamicArrayQueue_a1c39ec156dd583bb102839d7b4eec5d6}} 
+\index{lab\+::impl\+::\+Dynamic\+Array\+Queue@{lab\+::impl\+::\+Dynamic\+Array\+Queue}!Dynamic\+Array\+Queue@{Dynamic\+Array\+Queue}}
+\index{Dynamic\+Array\+Queue@{Dynamic\+Array\+Queue}!lab\+::impl\+::\+Dynamic\+Array\+Queue@{lab\+::impl\+::\+Dynamic\+Array\+Queue}}
+\subsubsection{\texorpdfstring{Dynamic\+Array\+Queue()}{DynamicArrayQueue()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+template$<$typename... Ts$>$ \\
+\hyperlink{classlab_1_1impl_1_1DynamicArrayQueue}{lab\+::impl\+::\+Dynamic\+Array\+Queue}$<$ T $>$\+::\hyperlink{classlab_1_1impl_1_1DynamicArrayQueue}{Dynamic\+Array\+Queue} (\begin{DoxyParamCaption}\item[{Ts \&\&...}]{args }\end{DoxyParamCaption})}
+
+
+
+Constructs queue from arbitary number of args. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Args} & must be same type \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/starquell/\+C++/labs/4th\+Sem/lab1/src/Dynamic\+Array.\+hpp\end{DoxyCompactItemize}

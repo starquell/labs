@@ -8,12 +8,22 @@
 
 namespace lab::impl {
 
+    /**
+     * @brief Class that holds queue implementation based on std::vector
+     *      \b Operations complexity:
+     *      \li Push - O(1)
+     *      \li Pop - O(1)
+     */
     template <typename T>
     class DynamicArrayQueue : public IQueue<T> {
     public:
 
         explicit DynamicArrayQueue();
 
+        /**
+        *  @brief Constructs queue from arbitary number of args
+        *  @param Args must be same type
+        */
         template <typename... Ts>
         DynamicArrayQueue(Ts&&... args);
 
@@ -32,7 +42,7 @@ namespace lab::impl {
 
     private:
         std::vector<T> m_container;
-        std::size_t m_begin;
+        std::size_t m_begin;        /// Index of first element of queue in vector
     };
 }
 

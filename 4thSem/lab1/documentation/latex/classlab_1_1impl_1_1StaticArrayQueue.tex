@@ -1,0 +1,87 @@
+\hypertarget{classlab_1_1impl_1_1StaticArrayQueue}{}\section{lab\+:\+:impl\+:\+:Static\+Array\+Queue$<$ T, Size $>$ Class Template Reference}
+\label{classlab_1_1impl_1_1StaticArrayQueue}\index{lab\+::impl\+::\+Static\+Array\+Queue$<$ T, Size $>$@{lab\+::impl\+::\+Static\+Array\+Queue$<$ T, Size $>$}}
+
+
+Class that holds queue implementation based on std\+::array {\bfseries Operations} complexity\+:  
+
+
+
+
+{\ttfamily \#include $<$Static\+Array.\+hpp$>$}
+
+
+
+Inheritance diagram for lab\+:\+:impl\+:\+:Static\+Array\+Queue$<$ T, Size $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=217pt]{classlab_1_1impl_1_1StaticArrayQueue__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for lab\+:\+:impl\+:\+:Static\+Array\+Queue$<$ T, Size $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=217pt]{classlab_1_1impl_1_1StaticArrayQueue__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename... Args$>$ }\\\hyperlink{classlab_1_1impl_1_1StaticArrayQueue_a8c77c1506a3fdc3c4b0ccd41aa7352ff}{Static\+Array\+Queue} (Args \&\&... args)
+\begin{DoxyCompactList}\small\item\em Constructs queue from arbitary number of args. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classlab_1_1impl_1_1StaticArrayQueue_a73094b978df25af0453d5e9787d81957}\label{classlab_1_1impl_1_1StaticArrayQueue_a73094b978df25af0453d5e9787d81957}} 
+void \hyperlink{classlab_1_1impl_1_1StaticArrayQueue_a73094b978df25af0453d5e9787d81957}{push} (const T \&value) override
+\begin{DoxyCompactList}\small\item\em Inserts value to end of the queue. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classlab_1_1impl_1_1StaticArrayQueue_a55460501294a71b11e94c44bfcdb18d3}\label{classlab_1_1impl_1_1StaticArrayQueue_a55460501294a71b11e94c44bfcdb18d3}} 
+void \hyperlink{classlab_1_1impl_1_1StaticArrayQueue_a55460501294a71b11e94c44bfcdb18d3}{push} (T \&\&value) override
+\begin{DoxyCompactList}\small\item\em Inserts value to end of the queue. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classlab_1_1impl_1_1StaticArrayQueue_ad246e9b69d05aa6705b796a27082a1a4}\label{classlab_1_1impl_1_1StaticArrayQueue_ad246e9b69d05aa6705b796a27082a1a4}} 
+T \hyperlink{classlab_1_1impl_1_1StaticArrayQueue_ad246e9b69d05aa6705b796a27082a1a4}{pop} () override
+\begin{DoxyCompactList}\small\item\em Removes first element in queue. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classlab_1_1impl_1_1StaticArrayQueue_adbf6d2a433d6dcf637fadfd555df4dbd}\label{classlab_1_1impl_1_1StaticArrayQueue_adbf6d2a433d6dcf637fadfd555df4dbd}} 
+const T \& \hyperlink{classlab_1_1impl_1_1StaticArrayQueue_adbf6d2a433d6dcf637fadfd555df4dbd}{front} () const override
+\begin{DoxyCompactList}\small\item\em Returns first element in queue. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classlab_1_1impl_1_1StaticArrayQueue_ad4488385381fe0920676ce45e221e4b5}\label{classlab_1_1impl_1_1StaticArrayQueue_ad4488385381fe0920676ce45e221e4b5}} 
+bool \hyperlink{classlab_1_1impl_1_1StaticArrayQueue_ad4488385381fe0920676ce45e221e4b5}{empty} () const noexcept override
+\begin{DoxyCompactList}\small\item\em Returns true if queue is empty. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$typename T, std\+::size\+\_\+t Size$>$\newline
+class lab\+::impl\+::\+Static\+Array\+Queue$<$ T, Size $>$}
+
+Class that holds queue implementation based on std\+::array {\bfseries Operations} complexity\+: 
+
+\begin{DoxyItemize}
+\item Push -\/ O(1) \item Pop -\/ O(1) \end{DoxyItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classlab_1_1impl_1_1StaticArrayQueue_a8c77c1506a3fdc3c4b0ccd41aa7352ff}\label{classlab_1_1impl_1_1StaticArrayQueue_a8c77c1506a3fdc3c4b0ccd41aa7352ff}} 
+\index{lab\+::impl\+::\+Static\+Array\+Queue@{lab\+::impl\+::\+Static\+Array\+Queue}!Static\+Array\+Queue@{Static\+Array\+Queue}}
+\index{Static\+Array\+Queue@{Static\+Array\+Queue}!lab\+::impl\+::\+Static\+Array\+Queue@{lab\+::impl\+::\+Static\+Array\+Queue}}
+\subsubsection{\texorpdfstring{Static\+Array\+Queue()}{StaticArrayQueue()}}
+{\footnotesize\ttfamily template$<$typename T , std\+::size\+\_\+t Size$>$ \\
+template$<$typename... Args$>$ \\
+\hyperlink{classlab_1_1impl_1_1StaticArrayQueue}{lab\+::impl\+::\+Static\+Array\+Queue}$<$ T, Size $>$\+::\hyperlink{classlab_1_1impl_1_1StaticArrayQueue}{Static\+Array\+Queue} (\begin{DoxyParamCaption}\item[{Args \&\&...}]{args }\end{DoxyParamCaption})}
+
+
+
+Constructs queue from arbitary number of args. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Args} & must be same type \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/starquell/\+C++/labs/4th\+Sem/lab1/src/Static\+Array.\+hpp\end{DoxyCompactItemize}

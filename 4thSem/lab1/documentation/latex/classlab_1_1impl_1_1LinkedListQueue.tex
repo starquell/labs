@@ -1,0 +1,87 @@
+\hypertarget{classlab_1_1impl_1_1LinkedListQueue}{}\section{lab\+:\+:impl\+:\+:Linked\+List\+Queue$<$ T $>$ Class Template Reference}
+\label{classlab_1_1impl_1_1LinkedListQueue}\index{lab\+::impl\+::\+Linked\+List\+Queue$<$ T $>$@{lab\+::impl\+::\+Linked\+List\+Queue$<$ T $>$}}
+
+
+Class that holds queue implementation based on std\+::list {\bfseries Operations} complexity\+:  
+
+
+
+
+{\ttfamily \#include $<$Linked\+List.\+hpp$>$}
+
+
+
+Inheritance diagram for lab\+:\+:impl\+:\+:Linked\+List\+Queue$<$ T $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=236pt]{classlab_1_1impl_1_1LinkedListQueue__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for lab\+:\+:impl\+:\+:Linked\+List\+Queue$<$ T $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=236pt]{classlab_1_1impl_1_1LinkedListQueue__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename... Ts$>$ }\\\hyperlink{classlab_1_1impl_1_1LinkedListQueue_a6fbacc0f7c5c741b048326c73b761b36}{Linked\+List\+Queue} (Ts \&\&... args)
+\begin{DoxyCompactList}\small\item\em Constructs queue from arbitary number of args. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classlab_1_1impl_1_1LinkedListQueue_a634f14f772cb0d9ce0a9a60a5cd81405}\label{classlab_1_1impl_1_1LinkedListQueue_a634f14f772cb0d9ce0a9a60a5cd81405}} 
+void \hyperlink{classlab_1_1impl_1_1LinkedListQueue_a634f14f772cb0d9ce0a9a60a5cd81405}{push} (const T \&value) override
+\begin{DoxyCompactList}\small\item\em Inserts value to end of the queue. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classlab_1_1impl_1_1LinkedListQueue_a0d57b7b5ab370206ac3e0da143c70d50}\label{classlab_1_1impl_1_1LinkedListQueue_a0d57b7b5ab370206ac3e0da143c70d50}} 
+void \hyperlink{classlab_1_1impl_1_1LinkedListQueue_a0d57b7b5ab370206ac3e0da143c70d50}{push} (T \&\&value) override
+\begin{DoxyCompactList}\small\item\em Inserts value to end of the queue. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classlab_1_1impl_1_1LinkedListQueue_a79a798c1277bb38a085f5f5f00f22cc3}\label{classlab_1_1impl_1_1LinkedListQueue_a79a798c1277bb38a085f5f5f00f22cc3}} 
+T \hyperlink{classlab_1_1impl_1_1LinkedListQueue_a79a798c1277bb38a085f5f5f00f22cc3}{pop} () override
+\begin{DoxyCompactList}\small\item\em Removes first element in queue. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classlab_1_1impl_1_1LinkedListQueue_ae2e4c57fbf4668aa7a2a9360d7dad1fc}\label{classlab_1_1impl_1_1LinkedListQueue_ae2e4c57fbf4668aa7a2a9360d7dad1fc}} 
+const T \& \hyperlink{classlab_1_1impl_1_1LinkedListQueue_ae2e4c57fbf4668aa7a2a9360d7dad1fc}{front} () const override
+\begin{DoxyCompactList}\small\item\em Returns first element in queue. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classlab_1_1impl_1_1LinkedListQueue_a5fa5d5a7aa41d1bcb1e034fd149c1d5b}\label{classlab_1_1impl_1_1LinkedListQueue_a5fa5d5a7aa41d1bcb1e034fd149c1d5b}} 
+bool \hyperlink{classlab_1_1impl_1_1LinkedListQueue_a5fa5d5a7aa41d1bcb1e034fd149c1d5b}{empty} () const noexcept override
+\begin{DoxyCompactList}\small\item\em Returns true if queue is empty. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$typename T$>$\newline
+class lab\+::impl\+::\+Linked\+List\+Queue$<$ T $>$}
+
+Class that holds queue implementation based on std\+::list {\bfseries Operations} complexity\+: 
+
+\begin{DoxyItemize}
+\item Push -\/ O(1) \item Pop -\/ O(1) \end{DoxyItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classlab_1_1impl_1_1LinkedListQueue_a6fbacc0f7c5c741b048326c73b761b36}\label{classlab_1_1impl_1_1LinkedListQueue_a6fbacc0f7c5c741b048326c73b761b36}} 
+\index{lab\+::impl\+::\+Linked\+List\+Queue@{lab\+::impl\+::\+Linked\+List\+Queue}!Linked\+List\+Queue@{Linked\+List\+Queue}}
+\index{Linked\+List\+Queue@{Linked\+List\+Queue}!lab\+::impl\+::\+Linked\+List\+Queue@{lab\+::impl\+::\+Linked\+List\+Queue}}
+\subsubsection{\texorpdfstring{Linked\+List\+Queue()}{LinkedListQueue()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+template$<$typename... Ts$>$ \\
+\hyperlink{classlab_1_1impl_1_1LinkedListQueue}{lab\+::impl\+::\+Linked\+List\+Queue}$<$ T $>$\+::\hyperlink{classlab_1_1impl_1_1LinkedListQueue}{Linked\+List\+Queue} (\begin{DoxyParamCaption}\item[{Ts \&\&...}]{args }\end{DoxyParamCaption})}
+
+
+
+Constructs queue from arbitary number of args. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Args} & must be same type \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/starquell/\+C++/labs/4th\+Sem/lab1/src/Linked\+List.\+hpp\end{DoxyCompactItemize}

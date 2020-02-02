@@ -1,0 +1,6 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$classlab_1_1impl_1_1IQueue.html" title="Interface for queue implementations. " alt="" coords="5,56,159,83"/>
+<area shape="rect" id="node2" href="$classlab_1_1impl_1_1DynamicArrayQueue.html" title="Class that holds queue implementation based on std::vector Operations complexity: ..." alt="" coords="207,5,439,32"/>
+<area shape="rect" id="node3" href="$classlab_1_1impl_1_1LinkedListQueue.html" title="Class that holds queue implementation based on std::list Operations complexity: " alt="" coords="219,56,427,83"/>
+<area shape="rect" id="node4" href="$classlab_1_1impl_1_1StaticArrayQueue.html" title="Class that holds queue implementation based on std::array Operations complexity: " alt="" coords="231,107,414,149"/>
+</map>
