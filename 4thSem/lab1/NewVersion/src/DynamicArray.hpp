@@ -4,7 +4,6 @@
 #include "QueueInterface.hpp"
 
 #include <vector>
-#include <initializer_list>
 
 namespace lab::impl {
 
@@ -42,7 +41,9 @@ namespace lab::impl {
 
     private:
         std::vector<T> m_container;
-        std::size_t m_begin;        /// Index of first element of queue in vector
+        std::size_t m_begin;              /// Index of first element of queue in vector
+        static constexpr std::size_t MAX_UNUSED_MEMORY = 100;  /// Max possible unused indexes in front of vector
+
     };
 }
 

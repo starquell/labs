@@ -2,7 +2,9 @@
 #define LAB1_DYNAMICARRAY_TPP
 
 #include "DynamicArray.hpp"
+
 #include <stdexcept>
+#include <algorithm>
 
 namespace lab::impl {
 
@@ -20,6 +22,18 @@ namespace lab::impl {
     T DynamicArrayQueue<T>::pop () {
         if (empty())
             throw std::logic_error{"Max capacity reached."};
+
+        if (m_begin == MAX_UNUSED_MEMORY - 1) {
+            /// Moving elements to beginning of vector to save space.
+            const auto size = std::distance(m_container.begin() + m_begin, m_container.end());
+
+            auto end_of_new_range = std::move(m_container.begin() + m_begin,
+                                              m_container.end(),
+                                              m_container.begin());
+            m_container.resize(size);
+            m_begin = 0;
+        }
+
         T to_return = std::move(m_container[m_begin]);
         ++m_begin;
         return to_return;
@@ -34,7 +48,7 @@ namespace lab::impl {
 
     template <typename T>
     bool DynamicArrayQueue<T>::empty () const noexcept {
-        return m_container.size() - m_begin == 0;
+        return m_container.size() == m_begin;
     }
 
     template <typename T>
