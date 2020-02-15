@@ -1,3 +1,0 @@
-# labs
-
-Labs from university
