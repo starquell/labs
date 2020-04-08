@@ -1,0 +1,6 @@
+[submodule "4thSem/lab2"]
+	path = 4thSem/lab2
+	url = https://github.com/starquell/team-algorithms-oop.git
+[submodule "3rdSem/project"]
+	path = 3rdSem/project
+	url = https://github.com/starquell/LOLCODE-Interpreter.git
