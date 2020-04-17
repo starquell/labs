@@ -11,6 +11,10 @@ All executables can be generated using CMake and `CMakeLists.txt` file in reposi
 ___
 **Benchmark results on my machine (Intel Core i5 5200U (2.2 GHz), 8 GB RAM):**
 
+![graphic](https://i.imgur.com/SpR0jv0.png)
+
+___
+
 | Sort function 	| Time     	| Vector Size 	| 
 |---------------	|----------	|-------------	| 
 | std::sort     	| 0.001 ms 	| 100         	| 
@@ -46,8 +50,6 @@ ___
 | My Parallel Quicksort 	| 1.34 ms  	| 100000      	|
 | My Parallel Quicksort 	| 13.0 ms  	| 1000000     	|
 | My Parallel Quicksort 	| 146 ms   	| 10000000    	|
-
-![graphic](https://i.imgur.com/iEMY9Qe.png)
 
 ___
 **Heap operations in sorting std::vector of size 1000000) :** 
