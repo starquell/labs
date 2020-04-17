@@ -4,7 +4,7 @@
 
 Running tests and benchmark requires C++17 and linking `tbb` and `pthread` for C++17 Parallel Algorihms
 
-Running benchmark also requires globally installed [Google Benchmark](https://github.com/google/benchmark)
+Running benchmark also requires globally installed and linked [Google Benchmark](https://github.com/google/benchmark)
 
 All executables can be generated using CMake and `CMakeLists.txt` file in repository
 
