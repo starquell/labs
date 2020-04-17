@@ -47,6 +47,8 @@ ___
 | My Parallel Quicksort 	| 13.0 ms  	| 1000000     	|
 | My Parallel Quicksort 	| 146 ms   	| 10000000    	|
 
+![graphic](https://i.imgur.com/iEMY9Qe.png)
+
 ___
 **Heap operations in sorting std::vector of size 1000000) :** 
 
