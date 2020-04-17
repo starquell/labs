@@ -9,7 +9,7 @@ Running benchmark also requires globally installed [Google Benchmark](https://gi
 All executables can be generated using CMake and `CMakeLists.txt` file in repository
 
 ___
-**Benchmark results on my machine:**
+**Benchmark results on my machine (Intel Core i5 5200U (2.2 GHz), 8 GB RAM):**
 
 | Sort function 	| Time     	| Vector Size 	| 
 |---------------	|----------	|-------------	| 
