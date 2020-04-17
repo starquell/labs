@@ -3,18 +3,28 @@ project(lab3a)
 
 set(CMAKE_CXX_STANDARD 17)
 
-option(RUN_BENCHMARK "Benchmark mode" ON)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
-if (RUN_BENCHMARK)
-    add_executable(lab3a benchmark.cpp)
-    find_package(benchmark)
-    target_link_libraries(lab3a benchmark::benchmark)
+option(BUILD_BENCHMARK "Build benchmarks" ON)
+option(BUILD_TESTS "Build tests" ON)
+
+if (BUILD_BENCHMARK)
     set(CMAKE_BUILD_TYPE RELEASE)
     set(CMAKE_CXX_FLAGS_RELEASE "-O3")
-else()
-    add_executable(lab3a main.cpp)
+    add_executable(benchmark benchmark.cpp)
+    find_package(benchmark)
+    target_link_libraries(benchmark benchmark::benchmark)
+    target_link_libraries(benchmark pthread tbb)
 endif()
 
-target_link_libraries(lab3a pthread tbb)
+if (BUILD_TESTS)
+    add_executable(tests tests.cpp)
+    target_link_libraries(tests pthread tbb)
+
+endif()
 
 
+add_executable(main main.cpp)
+target_link_libraries(main pthread tbb)
